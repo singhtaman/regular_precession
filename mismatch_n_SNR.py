@@ -4,7 +4,6 @@ from scipy.integrate import simps
 
 from pycbc.filter import optimized_match
 from pycbc.types import FrequencySeries
-import precession
 
 error_handler = np.seterr(invalid="raise")
 
@@ -12,12 +11,10 @@ solar_mass = 4.92624076 * 1e-6              # [solar_mass] = sec
 giga_parsec = 1.02927125 * 1e17             # [giga_parsec] = sec
 year = 31557600                             # [year] = sec
 
-mass2sec = 4.92624076e-6
-
-#Regular precessing class
+# Importing the regular precession class
 from regular_precession import *
 
-#Importing the required functions for params
+# Importing system parameters
 from systems_lib import *
 
 # For cosmology: converting redshift to luminosity distance
@@ -101,6 +98,21 @@ def opt_mismatch_gammaP(rp_params, np_params, size_of_gammaP_arr):
     return gammaP_arr, mismatch_arr, ind_arr, phase_m_arr
 
 
+def ideal_params(rp_params, min_gammaP):
+    """ Ideal parameters for a given gamma_P_min
+    _______________________________________________________________________________________
+    Parameters used:
+    rp_params : dict : Regular precession parameters
+    min_gammaP : float : min gammaP
+    _______________________________________________________________________________________
+    Returns:
+    rp_params : dict : Regular precession parameters (ideal ones)
+    _______________________________________________________________________________________
+    Sets gammaP to min_gammaP
+    """
+    rp_params["gamma_P"] = min_gammaP
+    return rp_params
+
 
 def opt_mismatch_extremas_gammaP(rp_params, np_params, size_of_gammaP_arr, return_tc_phic):
     """ Optimal mismatch extremas for array of gammaP
@@ -128,6 +140,8 @@ def opt_mismatch_extremas_gammaP(rp_params, np_params, size_of_gammaP_arr, retur
     max_mismatch = np.max(mismatch_arr)
     min_gammaP = gammaP_arr[np.argmin(mismatch_arr)]
     max_gammaP = gammaP_arr[np.argmax(mismatch_arr)]
+    
+    rp_params = ideal_params(rp_params, min_gammaP)
 
     if return_tc_phic:
         min_ind = np.argmin(mismatch_arr)
@@ -137,22 +151,6 @@ def opt_mismatch_extremas_gammaP(rp_params, np_params, size_of_gammaP_arr, retur
         return min_mismatch, max_mismatch, min_gammaP, max_gammaP, min_ind_a, min_phase_a
 
     return min_mismatch, max_mismatch, min_gammaP, max_gammaP
-
-
-def ideal_param(rp_params, min_gammaP):
-    """ Ideal parameters for a given gamma_P_min
-    _______________________________________________________________________________________
-    Parameters used:
-    rp_params : dict : Regular precession parameters
-    min_gammaP : float : min gammaP
-    _______________________________________________________________________________________
-    Returns:
-    rp_params : dict : Regular precession parameters (ideal ones)
-    _______________________________________________________________________________________
-    Sets gammaP to min_gammaP
-    """
-    rp_params["gamma_P"] = min_gammaP
-    return rp_params
 
 
 
@@ -240,7 +238,7 @@ def lindblom_inequality(rp_params, np_params, size_of_gammaP_arr, rp_SNR_term = 
         return None
 
 
-
+# Some utilities
 
 def same_total_mass_diff_chirp(q, mcz, rp_params, np_params):
     """ Varying q while keeping total mass constant, returns new param dict and new chirp mass along with eta
@@ -265,235 +263,6 @@ def same_total_mass_diff_chirp(q, mcz, rp_params, np_params):
     rp_params['eta'] = np_params['eta'] = eta
     rp_params['mcz'] = np_params['mcz'] = mcz_new*solar_mass
     return rp_params, np_params, mcz_new, eta
-
-def random_angles_generator():
-    """ Random angles generator
-    _______________________________________________________________________________________
-    Parameters used:
-    None
-    _______________________________________________________________________________________
-    Returns:
-    theta_J: float : thetaJ
-    phi_J: float : phiJ
-    theta_S: float : thetaS
-    phi_S: float : phiS
-    _______________________________________________________________________________________
-    Generates random sky locations and binary orientations
-    """
-    n = 4
-    get_random_numbers = np.random.random(n)
-    
-    # Random angles for J
-    cos_theta_J = 2*get_random_numbers[0] - 1
-    thetaJ = np.arccos(cos_theta_J)
-    phiJ = 2*np.pi*get_random_numbers[1]
-    
-    # Random angles for S
-    cos_theta_S = 2*get_random_numbers[2] - 1
-    thetaS = np.arccos(cos_theta_S)
-    phiS = 2*np.pi*get_random_numbers[3]
-    
-    return thetaJ, phiJ, thetaS, phiS
-
-
-
-def random_J_angles_generator():
-    """ Random J angles generator
-    _______________________________________________________________________________________
-    Parameters used:
-    None
-    _______________________________________________________________________________________
-    Returns:
-    thetaJ : float : thetaJ
-    phiJ : float : phiJ
-    _______________________________________________________________________________________
-    Generates random binary orientations
-    """
-    n = 2
-    get_random_numbers = np.random.random(n)
-    
-    # Random angles for J
-    
-    cos_theta_J = 2*get_random_numbers[0] - 1
-    thetaJ = np.arccos(cos_theta_J)
-    phiJ = 2*np.pi*get_random_numbers[1]
-    
-    return thetaJ, phiJ
-
-def random_N_angles_generator():
-    """ Random N angles generator
-    _______________________________________________________________________________________
-    Parameters used:
-    None
-    _______________________________________________________________________________________
-    Returns:
-    thetaS : float : thetaS
-    phiS : float : phiS
-    _______________________________________________________________________________________
-    Generates random sky location angles
-    """
-    n = 2
-    get_random_numbers = np.random.random(n)
-    
-    # Random angles for N
-    
-    cos_theta_S = 2*get_random_numbers[0] - 1
-    thetaS = np.arccos(cos_theta_S)
-    phiS = 2*np.pi*get_random_numbers[1]
-    
-    return thetaS, phiS
-
-
-def get_param_distributions(q, s, N, r):
-    """Gets precession parameters for a population of binaries
-    _______________________________________________________________________________________
-    Parameters used:
-    q : float : mass ratio
-    s : float : spins - equal spin case
-    N : int : number of binaries in the population
-    r : float : binary separation we want our distribution values at
-    _______________________________________________________________________________________
-    Returns:
-    bracket_theta_arr : array_like : bracket theta array
-    bracket_omega_arr : array_like : bracket omega array
-    delta_theta_arr : array_like : delta theta array
-    delta_omega_arr : array_like : delta omega array
-    little_omega_arr : array_like : little omega array
-    _______________________________________________________________________________________
-    Calculates distributions of all 5 precession parameters for a population of binaries
-    """
-    vec = precession.isotropic_angles(N)
-
-    # N binaries with random theta1, theta2 and deltaphi
-    theta1_arr, theta2_arr, deltaphi_arr = vec[0], vec[1], vec[2]
-
-    bracket_theta_arr = []
-    bracket_omega_arr = []
-    delta_theta_arr = []
-    delta_omega_arr = []
-    little_omega_arr = []
-
-
-    for it in range(N) :
-        # theta1, theta2 and deltaphi from the arrays
-        theta1 = theta1_arr[it]
-        theta2 = theta2_arr[it]
-        deltaphi = deltaphi_arr[it]
-
-        #assign spin s to both binaries
-        chi1 = chi2 = s
-
-        #calculate chi_eff
-        chieff =  precession.eval_chieff(theta1, theta2, q, chi1, chi2)
-
-        #calculate asymptotic angular momentum kappa
-        kappa = (chi1 * np.cos(theta1) + q**2 * chi2 * np.cos(theta2) )/(1+q)**2 + \
-                (chi1**2 + q**4 *chi2**2 + 2*chi1*chi2*q**2 * (np.cos(theta1)*np.cos(theta2) + np.cos(deltaphi)*np.sin(theta1)*np.sin(theta2))) / (2*q*(1+q)**2*r**(1/2))
-
-        #based on above values calculate bracket omega, bracket theta, delta theta, delta omega, nut_freq
-        
-        bracket_theta = precession.eval_bracket_theta(kappa, r, chieff, q, chi1, chi2)
-        bracket_omega = precession.eval_bracket_omega(kappa, r, chieff, q, chi1, chi2)
-        delta_theta = precession.eval_delta_theta(kappa, r, chieff, q, chi1, chi2)
-        delta_omega = precession.eval_delta_omega(kappa, r, chieff, q, chi1, chi2)
-        little_omega = precession.eval_nutation_freq(kappa, r, chieff, q, chi1, chi2)
-
-
-        #appending all the values to corresponding arrays
-        bracket_theta_arr.append(bracket_theta)
-        bracket_omega_arr.append(bracket_omega)
-        delta_theta_arr.append(delta_theta)
-        delta_omega_arr.append(delta_omega)
-        little_omega_arr.append(little_omega)
-
-    return bracket_theta_arr, bracket_omega_arr, delta_theta_arr, delta_omega_arr, little_omega_arr
-
-
-def random_precession_params_iso(chi1 = 1, chi2 = 1, q = 1, r = 6):
-    """ Random precession params:
-    _______________________________________________________________________________________
-    Parameters used:
-    chi1 : float : chi1
-    chi2 : float : chi2
-    q : float : mass ratio
-    r : float : binary separation
-    _______________________________________________________________________________________
-    Returns:
-    theta_tilde : float : dimensionless theta
-    omega_tilde : float : dimensionless omega
-    bracket_theta : float : bracket theta
-    bracket_omega : float : bracket omega
-    _______________________________________________________________________________________
-    draws theta_1, theta_2, deltaphi randomly and calculates bracket theta, bracket omega using the PRECESSION code
-    returns dimensionless theta, omega and precessional averaged theta and omega
-    """
-    n = 3
-    get_random_numbers_p = np.random.random(n)
-
-    cos_theta_1 = 2*get_random_numbers_p[0] - 1
-    theta_1 = np.arccos(cos_theta_1)
-    cos_theta_2 = 2*get_random_numbers_p[1] - 1
-    theta_2 = np.arccos(cos_theta_2)
-
-    deltaphi = 2*np.pi*get_random_numbers_p[2]
-
-    chieff = precession.eval_chieff(theta_1, theta_2, q, chi1, chi2)
-
-    kappa = (chi1 * np.cos(theta_1) + q**2 * chi2 * np.cos(theta_2) )/(1+q)**2 + \
-            (chi1**2 + q**4 *chi2**2 + 2*chi1*chi2*q**2 * (np.cos(theta_1)*np.cos(theta_2) + np.cos(deltaphi)*np.sin(theta_1)*np.sin(theta_2))) / (2*q*(1+q)**2*r**(1/2))
-    
-    bracket_theta = precession.eval_bracket_theta(kappa, r, chieff, q, chi1, chi2)
-    bracket_omega = precession.eval_bracket_omega(kappa, r, chieff, q, chi1, chi2)
-    
-    theta_tilde = bracket_theta*10
-    omega_tilde = bracket_omega/(1000*mass2sec)
-
-    return theta_tilde, omega_tilde, bracket_theta, bracket_omega
-
-
-def vary_params(rp_params, np_params, set_new_line_of_sight = False, set_new_precession_params = False, do_you_want_iso = True):
-    """ Get random RP params: Varies J angles first, then N angles and then precession params
-    _______________________________________________________________________________________
-    Parameters used:
-    rp_params : dict : Regular precession parameters
-    np_params : dict : Non-precessing parameters
-    set_new_line_of_sight : bool : set new line of sight
-    set_new_precession_params : bool : set new precession params
-    _______________________________________________________________________________________
-    Returns:
-    rp_params : dict : Regular precession parameters
-    np_params : dict : Non-precessing parameters
-    _______________________________________________________________________________________
-    """
-    theta_J, phi_J = random_J_angles_generator()
-    if set_new_line_of_sight:
-        theta_S, phi_S = random_N_angles_generator()
-    else:
-        theta_S = rp_params["theta_S"]
-        phi_S = rp_params["phi_S"]
-    if set_new_precession_params:
-        if do_you_want_iso:
-            theta_tilde, omega_tilde, bracket_theta, bracket_omega = random_precession_params_iso()
-        
-    else:
-        theta_tilde = rp_params["theta_tilde"]
-        omega_tilde = rp_params["omega_tilde"]
-    
-    rp_params["theta_J"] = theta_J
-    rp_params["phi_J"] = phi_J
-    np_params["theta_J"] = theta_J
-    np_params["phi_J"] = phi_J
-    
-    rp_params["theta_S"] = theta_S
-    rp_params["phi_S"] = phi_S
-    np_params["theta_S"] = theta_S
-    np_params["phi_S"] = phi_S
-    
-    rp_params["theta_tilde"] = theta_tilde
-    rp_params["omega_tilde"] = omega_tilde
-    
-    return rp_params, np_params
-
 
 
 def redshift_to_luminosity_distance(z)->float:
@@ -529,4 +298,3 @@ def redshifted_new_params(z, rp_params)->dict:
     #new chirp mass
     rp_params["mcz"] = old_chirp*(1+z)
     return rp_params
-
