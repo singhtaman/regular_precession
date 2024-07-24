@@ -241,14 +241,12 @@ def prec_av_inf_to_f20_rp_params(theta_1_inf, theta_2_inf, delta_phi, q, chi1, c
     _____________________________
     """
     if binary_spin_orientation == 'ISO':
-        print('Spin orientation is isotropic, dont need to calculate the precessional averaged values, wrong function call')
         print('Please call the function with the correct spin orientation: WA or SA')
         print('If you need to calculate precession parameters for isotropic spin orientation, please call the function: get_prec_params_t1_t2_dphi with the correct arguments')
-        return None
+        return warnings.warn('Spin orientation is isotropic, dont need to calculate the precessional averaged values, wrong function call')
     
     elif binary_spin_orientation == 'none' or binary_spin_orientation is None:
-        print('Spin orientation is not specified, please specify the spin orientation, so that precessional averaged values can be calculated, if needed.')
-        return None
+        return warnings.warn('Spin orientation is not specified, please specify the spin orientation, so that precessional averaged values can be calculated, if needed.')
     
     else:
         u20 = precession.eval_u(r20, q)
