@@ -147,5 +147,5 @@ import pickle
 
 #mass info
 
-with open("table_2/DICT_param_mismatch_SNR_for_m20_q1_parallel_new.pkl", "wb") as f: # _new so it doesn't overwrite the previously saved file
+with open("../table_2/DICT_param_mismatch_SNR_for_m20_q1_parallel_new.pkl", "wb") as f: # _new so it doesn't overwrite the previously saved file
     pickle.dump(DICT_Par_Mis_SNR, f)

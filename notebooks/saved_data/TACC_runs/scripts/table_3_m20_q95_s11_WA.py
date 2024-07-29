@@ -178,7 +178,7 @@ import pickle
 
 #mass info
 
-with open("saved_data_WA_SA/DICT_table_2_param_mismatch_SNR_for_m20_q95_s11_WA_parallel_new.pkl", "wb") as f: # _new so it doesn't overwrite the previously saved file
+with open("../table_3/WA/DICT__param_mismatch_SNR_for_m20_q95_s11_WA_parallel_new.pkl", "wb") as f: # _new so it doesn't overwrite the previously saved file
     pickle.dump(DICT_Par_Mis_SNR, f)
 
-print("Done") # if running an interactive shell, a print statement to say that its done
+print("Done") # while running an interactive shell, a print statement to say that its done
