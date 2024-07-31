@@ -73,7 +73,7 @@ f_ref = 20.0
 
 eta_d = q_d/(1+q_d)**2
 
-total_mass = (eta_d**0.6)*mcz_d
+total_mass = (eta_d**(-0.6))*mcz_d
 
 # Iterate over J and S angles
 for theta_J, phi_J, theta_S, phi_S, theta_1, theta_2, delta_phi in zip(theta_rand_J_arr, phi_rand_J_arr, theta_rand_S_arr, phi_rand_S_arr, theta_1_rand_S_arr, theta_2_rand_S_arr, delta_phi_rand_S_arr):
