@@ -50,6 +50,52 @@ def Sn(f, delta_f=0.25, frequencySeries=True):
         return FrequencySeries(Sn_val, delta_f=delta_f)
     return Sn_val
 
+def get_mismatch_rp(source, template, update_tc_phic=True):
+    """
+    Get the mismatch between two waveforms
+    _______________________________________________________________________________________
+    Parameters used:
+    source : dict : source parameters (precessing)
+    template : dict : template parameters (non - precessing)
+    update_tc_phic : bool : update tc and phic
+    _______________________________________________________________________________________
+    Returns:
+    A dictionary with keys:
+        mismatch : float : mismatch
+        phase : float : phase
+        ind : int : index
+    """
+    
+    # Get the f_cut
+    f_cut = Regular_precession(source).get_f_cut()
+    # Make the frequency range
+    f_range = np.arange(20, f_cut, 0.25)
+    delta_f = 0.25
+    
+    # Noise PSD
+    psd = Sn(f_range, delta_f)
+    
+    # Initialize the systems
+    Source_init = Regular_precession(source)
+    Template_init = Regular_precession(template)
+    
+    # Get the signals
+    Source_signal = Source_init.precessing_strain(f_range, delta_f)
+    Template_signal = Template_init.precessing_strain(f_range, delta_f)
+    
+    # Calculate the match
+    match, ind, phase = optimized_match(Source_signal, Template_signal, psd, return_phase=True)
+    
+    # Mismatch
+    mismatch = 1 - match
+    
+    if update_tc_phic:
+        template['phi_c'] = phase
+        template['t_c'] = template['t_c'] - ind * Template_signal.delta_t
+    
+    # return the mismatch
+    return {'mismatch': mismatch, 'phase': phase, 'ind': ind}
+
 
 def opt_mismatch_gammaP(rp_params, np_params, size_of_gammaP_arr):
     """ Optimal mismatch for each gammaP

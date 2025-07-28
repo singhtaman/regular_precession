@@ -23,7 +23,6 @@ class Regular_precession():
     def __init__(self, params) -> None:
         
         self.params = params
-        
         # non-precessiing parameters
         self.theta_S = params['theta_S']            # Sky inclination -- polar angle for the line of sight vector in detector frame
         self.phi_S = params['phi_S']                # Sky azimuthal angle -- azimuthal angle for the line of sight vector in detector frame
@@ -159,6 +158,9 @@ class Regular_precession():
         if sin_i_JN == 0:
             cos_o_XH = 1
             sin_o_XH = 0
+            """tan_o_XH = (np.sin(theta_J) * np.sin(phi_J - phi_S)) / (np.cos(theta_J) * np.sin(theta_S) * np.cos(phi_J - phi_S) + np.sin(theta_J) * np.cos(theta_S))
+            cos_o_XH = 1 / np.sqrt(1 + tan_o_XH ** 2)
+            sin_o_XH = np.sqrt(1 - cos_o_XH ** 2)"""
         else:
             cos_o_XH = (np.cos(self.theta_S) * np.sin(self.theta_J) * np.cos(self.phi_J - self.phi_S) - np.sin(self.theta_S) * np.cos(self.theta_J)) / (sin_i_JN) # Equation A6b cos(Omega_{XH}) = (cos(theta_S) * sin(theta_J) * cos(phi_J - phi_S) - sin(theta_S) * cos(theta_J)) / sin(i_JN)
             sin_o_XH = (np.sin(self.theta_J) * np.sin(self.phi_J - self.phi_S)) / (sin_i_JN) # Equation A6a sin(Omega_{XH}) = (sin(theta_J) * sin(phi_J - phi_S)) / sin(i_JN)
@@ -216,23 +218,22 @@ class Regular_precession():
         num_psi = np.sin(self.get_theta_LJ(f)) * (np.cos(self.get_phi_LJ(f)) * sin_o_XH + np.sin(self.get_phi_LJ(f)) * cos_i_JN * cos_o_XH ) - np.cos(self.get_theta_LJ(f)) * sin_i_JN * cos_o_XH
         den_psi = np.sin(self.get_theta_LJ(f)) * (np.cos(self.get_phi_LJ(f)) * cos_o_XH - np.sin(self.get_phi_LJ(f)) * cos_i_JN * sin_o_XH ) + np.cos(self.get_theta_LJ(f)) * sin_i_JN * sin_o_XH
         
-        if self.phi_S == self.phi_J:
-            if self.theta_S == self.theta_J:
-                tan_psi = np.tan(self.get_phi_LJ(f)) # making sure it works for the face-on case
-            else:
-                tan_psi = num_psi / den_psi
-                
+        if abs(cos_i_JN) == 1:
+            o_XH = np.arctan2(sin_o_XH, cos_o_XH)
+            tan_psi = np.tan(o_XH + cos_i_JN*self.get_phi_LJ(f)) # making sure it works for the face-on case
         else:
             tan_psi = num_psi / den_psi
         
-        if den_psi.all() == 0:
-            if self.theta_tilde == 0:
-                return C_amp, 0, -1 # for the non-precessing case
-                
+        psi = np.arctan(tan_psi)
         
         #define  2 * psi + alpha
-        sin_2pa = (2 * cos_alpha * tan_psi + sin_alpha * (1 - (tan_psi)**2)) / (1 + (tan_psi)**2) # Combining equations 3 and 4b -- sin(2 * psi + alpha) = (2 * cos(alpha) * tan(psi) + sin(alpha) * (1 - tan(psi)**2)) / (1 + tan(psi)**2)
-        cos_2pa = (cos_alpha * (1 - (tan_psi)**2) - 2 * sin_alpha * tan_psi) / (1 + (tan_psi)**2) # Combining equations 3 and 4b -- cos(2 * psi + alpha) = (cos(alpha) * (1 - tan(psi)**2) - 2 * sin(alpha) * tan(psi)) / (1 + tan(psi)**2)
+        if (2*psi%np.pi).any() == 0:
+            alpha = np.arctan2(sin_alpha, cos_alpha)
+            sin_2pa = np.sin(2*psi + alpha)
+            cos_2pa = np.cos(2*psi + alpha)
+        else:
+            sin_2pa = (2 * cos_alpha * tan_psi + sin_alpha * (1 - (tan_psi)**2)) / (1 + (tan_psi)**2) # Combining equations 3 and 4b -- sin(2 * psi + alpha) = (2 * cos(alpha) * tan(psi) + sin(alpha) * (1 - tan(psi)**2)) / (1 + tan(psi)**2)
+            cos_2pa = (cos_alpha * (1 - (tan_psi)**2) - 2 * sin_alpha * tan_psi) / (1 + (tan_psi)**2) # Combining equations 3 and 4b -- cos(2 * psi + alpha) = (cos(alpha) * (1 - tan(psi)**2) - 2 * sin(alpha) * tan(psi)) / (1 + tan(psi)**2)
         
         return C_amp, sin_2pa, cos_2pa
 
