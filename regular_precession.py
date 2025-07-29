@@ -326,7 +326,7 @@ class Regular_precession():
             integrand_delta_phi = - Omega_LJ * np.cos(self.get_theta_LJ(f)) / f_dot # for face-on case
             
         else:
-            integrand_delta_phi = (LdotN / (1 - LdotN**2)) * Omega_LJ * np.sin(self.get_theta_LJ(f)) * ( np.cos(self.get_theta_LJ(f)) * sin_i_JN * np.sin(self.get_phi_LJ(f)) - np.sin(self.get_theta_LJ(f)) * cos_i_JN ) / f_dot
+            integrand_delta_phi = (LdotN / (1 - LdotN**2)) * ((Omega_LJ * np.sin(self.get_theta_LJ(f)) * ( np.cos(self.get_theta_LJ(f)) * sin_i_JN * np.sin(self.get_phi_LJ(f)) - np.sin(self.get_theta_LJ(f)) * cos_i_JN ) / f_dot) - ( (self.get_theta_LJ(f)/(3*f)) * np.cos(self.get_phi_LJ(f)) * sin_i_JN)) # added correction term with theta_LJ/3f cos phi_LJ sin i_JN term
         
         return integrand_delta_phi
 
