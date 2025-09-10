@@ -19,17 +19,19 @@ from mismatch_n_SNR import *
 
 
 def random_angles_generator():
-    """ Random angles generator
-    _____________________________
-    Arguments:
-    None
-    _____________________________
-    Returns:
-    theta_J: float : thetaJ
-    phi_J: float : phiJ
-    theta_S: float : thetaS
-    phi_S: float : phiS
-    _____________________________
+    """
+    Generate random angles for J and S vectors.
+
+    Returns
+    -------
+    thetaJ : float
+        Polar angle for J.
+    phiJ : float
+        Azimuthal angle for J.
+    thetaS : float
+        Polar angle for S.
+    phiS : float
+        Azimuthal angle for S.
     """
     n = 4
     get_random_numbers = np.random.random(n)
@@ -48,21 +50,32 @@ def random_angles_generator():
 
 
 def get_param_distributions(q, s, N, r):
-    """Gets precession parameters for a population of binaries
-    _____________________________
-    Arguments:
-    q : float : mass ratio
-    s : float : spins - equal spin case
-    N : int : number of binaries in the population
-    r : float : binary separation we want our distribution values at
-    _____________________________
-    Returns:
-    bracket_theta_arr : array_like : bracket theta array
-    bracket_omega_arr : array_like : bracket omega array
-    delta_theta_arr : array_like : delta theta array
-    delta_omega_arr : array_like : delta omega array
-    little_omega_arr : array_like : little omega array
-    _____________________________
+    """
+    Get precession parameters for a population of binaries.
+
+    Parameters
+    ----------
+    q : float
+        Mass ratio.
+    s : float
+        Spin (equal spin case).
+    N : int
+        Number of binaries in the population.
+    r : float
+        Binary separation.
+
+    Returns
+    -------
+    bracket_theta_arr : array_like
+        Array of bracket theta values.
+    bracket_omega_arr : array_like
+        Array of bracket omega values.
+    delta_theta_arr : array_like
+        Array of delta theta values.
+    delta_omega_arr : array_like
+        Array of delta omega values.
+    little_omega_arr : array_like
+        Array of little omega values.
     """
    
     vec = precession.isotropic_angles(N)
@@ -113,23 +126,31 @@ def get_param_distributions(q, s, N, r):
     return bracket_theta_arr, bracket_omega_arr, delta_theta_arr, delta_omega_arr, little_omega_arr
 
 
-def random_precession_params_iso(chi1 = 1, chi2 = 1, q = 1, r = 6):
-    """ Random precession params:
-    _____________________________
-    Arguments:
-    chi1 : float : chi1 : default = 1
-    chi2 : float : chi2 : default = 1
-    q : float : mass ratio : default = 1
-    r : float : binary separation : default = 6
-    _____________________________
-    Returns:
-    theta_tilde : float : dimensionless theta
-    omega_tilde : float : dimensionless omega
-    bracket_theta : float : bracket theta
-    bracket_omega : float : bracket omega
-    _____________________________
-    draws theta_1, theta_2, deltaphi randomly and calculates bracket theta, bracket omega using the PRECESSION code
-    returns dimensionless theta, omega and precessional averaged actual theta and omega
+def random_precession_params_iso(chi1=1, chi2=1, q=1, r=6):
+    """
+    Generate random precession parameters for isotropic spins.
+
+    Parameters
+    ----------
+    chi1 : float, optional
+        Spin of first object (default 1).
+    chi2 : float, optional
+        Spin of second object (default 1).
+    q : float, optional
+        Mass ratio (default 1).
+    r : float, optional
+        Binary separation (default 6).
+
+    Returns
+    -------
+    theta_tilde : float
+        Dimensionless theta.
+    omega_tilde : float
+        Dimensionless omega.
+    bracket_theta : float
+        Bracket theta.
+    bracket_omega : float
+        Bracket omega.
     """
     n = 3
     get_random_numbers_p = np.random.random(n)
@@ -156,17 +177,18 @@ def random_precession_params_iso(chi1 = 1, chi2 = 1, q = 1, r = 6):
 
 
 def random_angles_generator_along_w_prec(arg_for_distribution):
-    """ Random angles generator
-    _____________________________
-    Arguments:
-    None
-    _____________________________
-    Returns:
-    theta_J: float : thetaJ
-    phi_J: float : phiJ
-    theta_S: float : thetaS
-    phi_S: float : phiS
-    _____________________________
+    """
+    Generate random angles for J, S, and optionally spin angles for different distributions.
+
+    Parameters
+    ----------
+    arg_for_distribution : str or None
+        Distribution type ('none', 'ISO', 'WA', 'SA').
+
+    Returns
+    -------
+    tuple
+        Angles for J, S, and possibly spin angles depending on distribution.
     """
     n = 7
     get_random_numbers = np.random.random(n)
@@ -224,21 +246,33 @@ def random_angles_generator_along_w_prec(arg_for_distribution):
 
 def prec_av_inf_to_f20_rp_params(theta_1_inf, theta_2_inf, delta_phi, q, chi1, chi2, r20, binary_spin_orientation):
     """
-    Precessional average inspiral from infinity to f = 20 Hz that returns the precessional averaged values of theta1 and theta2 needed to calculate the precession parameters
-    _____________________________
-    Arguments:
-    theta_1_inf : float : theta1 at infinity
-    theta_2_inf : float : theta2 at infinity
-    delta_phi : float : deltaphi
-    q : float : mass ratio
-    chi1 : float : chi1
-    chi2 : float : chi2
-    r20 : float : binary separation at f = 20 Hz
-    _____________________________
-    Returns:
-    theta_tilde : float : dimensionless theta : dimensionless precession amplitude
-    omega_tilde : float : dimensionless omega : dimensionless precession frequency
-    _____________________________
+    Precessional average inspiral from infinity to f = 20 Hz.
+
+    Parameters
+    ----------
+    theta_1_inf : float
+        Theta1 at infinity.
+    theta_2_inf : float
+        Theta2 at infinity.
+    delta_phi : float
+        Delta phi.
+    q : float
+        Mass ratio.
+    chi1 : float
+        Spin of first object.
+    chi2 : float
+        Spin of second object.
+    r20 : float
+        Binary separation at f = 20 Hz.
+    binary_spin_orientation : str
+        Spin orientation ('WA', 'SA', etc.).
+
+    Returns
+    -------
+    theta_tilde : float
+        Dimensionless precession amplitude.
+    omega_tilde : float
+        Dimensionless precession frequency.
     """
     if binary_spin_orientation == 'ISO':
         print('Please call the function with the correct spin orientation: WA or SA')
@@ -279,23 +313,35 @@ def prec_av_inf_to_f20_rp_params(theta_1_inf, theta_2_inf, delta_phi, q, chi1, c
 
 def get_prec_params_t1_t2_dphi(theta_1, theta_2, delta_phi, q, r, chi1, chi2):
     """
-    Get precession parameters
-    _____________________________
-    Arguments:
-    theta_1 : float : theta1
-    theta_2 : float : theta2
-    delta_phi : float : deltaphi
-    q : float : mass ratio
-    r : float : binary separation
-    chi1 : float : chi1
-    chi2 : float : chi2
-    _____________________________
-    Returns:
-    bracket_theta : float : bracket theta : precession amplitude
-    bracket_omega : float : bracket omega : precession frequency
-    theta_tilde : float : dimensionless theta : dimensionless precession amplitude
-    omega_tilde : float : dimensionless omega : dimensionless precession frequency
-    _____________________________
+    Get precession parameters for given spin angles and binary separation.
+
+    Parameters
+    ----------
+    theta_1 : float
+        Spin angle 1.
+    theta_2 : float
+        Spin angle 2.
+    delta_phi : float
+        Delta phi.
+    q : float
+        Mass ratio.
+    r : float
+        Binary separation.
+    chi1 : float
+        Spin of first object.
+    chi2 : float
+        Spin of second object.
+
+    Returns
+    -------
+    theta_tilde : float
+        Dimensionless precession amplitude.
+    omega_tilde : float
+        Dimensionless precession frequency.
+    bracket_theta : float
+        Precession amplitude.
+    bracket_omega : float
+        Precession frequency.
     """
     chieff = precession.eval_chieff(theta_1, theta_2, q, chi1, chi2)
     kappa = (chi1 * np.cos(theta_1) + q**2 * chi2 * np.cos(theta_2) )/(1+q)**2 + \

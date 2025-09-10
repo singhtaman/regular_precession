@@ -1,3 +1,8 @@
+"""
+Mismatch and SNR calculations for regular precession waveforms.
+
+This module provides functions to compute mismatches, SNRs, and related quantities for precessing and non-precessing systems.
+"""
 
 import numpy as np
 from scipy.integrate import simps
@@ -6,10 +11,6 @@ from pycbc.filter import optimized_match
 from pycbc.types import FrequencySeries
 
 error_handler = np.seterr(invalid="raise")
-
-solar_mass = 4.92624076 * 1e-6              # [solar_mass] = sec
-giga_parsec = 1.02927125 * 1e17             # [giga_parsec] = sec
-year = 31557600                             # [year] = sec
 
 # Importing the regular precession class
 from regular_precession import *
@@ -22,19 +23,22 @@ from astropy.cosmology import FlatLambdaCDM
 
 
 def Sn(f, delta_f=0.25, frequencySeries=True):
-    """ ALIGO noise curve from arXiv:0903.0338
-    _______________________________________________________________________________________
-    Parameters used:
-    f : array_like : frequency array
-    delta_f : float : frequency step
-    frequencySeries : bool : return FrequencySeries object
-    _______________________________________________________________________________________
-    Returns:
-    Sn_val : Noise curve values in the form of
-        FrequencySeries : if frequencySeries is True
-        array_like : if frequencySeries is False
-    _______________________________________________________________________________________
-    Noise curve array for ALIGO
+    """
+    Compute the ALIGO noise curve from arXiv:0903.0338.
+
+    Parameters
+    ----------
+    f : array_like
+        Frequency array.
+    delta_f : float, optional
+        Frequency step (default 0.25).
+    frequencySeries : bool, optional
+        If True, return a FrequencySeries object (default True).
+
+    Returns
+    -------
+    Sn_val : FrequencySeries or array_like
+        Noise curve values as FrequencySeries if frequencySeries is True, else as array.
     """
     Sn_val = np.zeros_like(f)
     fs = 20
@@ -52,18 +56,21 @@ def Sn(f, delta_f=0.25, frequencySeries=True):
 
 def get_mismatch_rp(source, template, update_tc_phic=True):
     """
-    Get the mismatch between two waveforms
-    _______________________________________________________________________________________
-    Parameters used:
-    source : dict : source parameters (precessing)
-    template : dict : template parameters (non - precessing)
-    update_tc_phic : bool : update tc and phic
-    _______________________________________________________________________________________
-    Returns:
-    A dictionary with keys:
-        mismatch : float : mismatch
-        phase : float : phase
-        ind : int : index
+    Calculate the mismatch between a source and template waveform.
+
+    Parameters
+    ----------
+    source : dict
+        Source system parameters.
+    template : dict
+        Template system parameters.
+    update_tc_phic : bool, optional
+        Whether to update template's t_c and phi_c (default True).
+
+    Returns
+    -------
+    dict
+        Dictionary with keys 'mismatch', 'phase', and 'ind'.
     """
     
     # Get the f_cut
@@ -98,20 +105,28 @@ def get_mismatch_rp(source, template, update_tc_phic=True):
 
 
 def opt_mismatch_gammaP(rp_params, np_params, size_of_gammaP_arr):
-    """ Optimal mismatch for each gammaP
-    _______________________________________________________________________________________
-    Parameters used:
-    rp_params : dict : Regular precession parameters
-    np_params : dict : Non-precessing parameters
-    size_of_gammaP_arr : int : size of gammaP array
-    _______________________________________________________________________________________
-    Returns:
-    gammaP_arr : array_like : gammaP array
-    mismatch_arr : array_like : mismatch array
-    ind_arr : array_like : index array
-    phase_m_arr : array_like : phase array
-    _______________________________________________________________________________________
-    Mismatches between RP and NP signals for each gammaP
+    """
+    Compute mismatch as a function of gamma_P.
+
+    Parameters
+    ----------
+    rp_params : dict
+        Regular precession parameters.
+    np_params : dict
+        Non-precessing parameters.
+    size_of_gammaP_arr : int
+        Number of gamma_P values to scan.
+
+    Returns
+    -------
+    gammaP_arr : array_like
+        Array of gamma_P values.
+    mismatch_arr : array_like
+        Array of mismatch values.
+    ind_arr : array_like
+        Array of indices of best match.
+    phase_m_arr : array_like
+        Array of phase values at best match.
     """
     f_cut = Regular_precession(rp_params).get_f_cut()
     f_range = np.arange(20, f_cut, 0.25)
@@ -145,40 +160,54 @@ def opt_mismatch_gammaP(rp_params, np_params, size_of_gammaP_arr):
 
 
 def ideal_params(rp_params, min_gammaP):
-    """ Ideal parameters for a given gamma_P_min
-    _______________________________________________________________________________________
-    Parameters used:
-    rp_params : dict : Regular precession parameters
-    min_gammaP : float : min gammaP
-    _______________________________________________________________________________________
-    Returns:
-    rp_params : dict : Regular precession parameters (ideal ones)
-    _______________________________________________________________________________________
-    Sets gammaP to min_gammaP
+    """
+    Return ideal parameters for a given minimum gamma_P.
+
+    Parameters
+    ----------
+    rp_params : dict
+        Regular precession parameters.
+    min_gammaP : float
+        Value of gamma_P for which to return ideal params.
+
+    Returns
+    -------
+    dict
+        Updated rp_params.
     """
     rp_params["gamma_P"] = min_gammaP
     return rp_params
 
 
 def opt_mismatch_extremas_gammaP(rp_params, np_params, size_of_gammaP_arr, return_tc_phic):
-    """ Optimal mismatch extremas for array of gammaP
-    _______________________________________________________________________________________
-    Parameters used:
-    rp_params : dict : Regular precession parameters
-    np_params : dict : Non-precessing parameters
-    size_of_gammaP_arr : int : size of gammaP array
-    return_tc_phic : bool : return tc and phic
-    _______________________________________________________________________________________
-    Returns:
-    min_mismatch : float : min mismatch
-    max_mismatch : float : max mismatch
-    min_gammaP : float : min gammaP
-    max_gammaP : float : max gammaP
-    and if return_tc_phic is True then - 
-        min_ind : int : min index
-        min_phase : float : min phase
-    _______________________________________________________________________________________
-    Extremas of mismatch values for array of gamma_P along with tc and phic if needed 
+    """
+    Find the minimum and maximum mismatch for an array of gamma_P values.
+
+    Parameters
+    ----------
+    rp_params : dict
+        Regular precession parameters.
+    np_params : dict
+        Non-precessing parameters.
+    size_of_gammaP_arr : int
+        Size of gamma_P array.
+    return_tc_phic : bool
+        Whether to return t_c and phi_c.
+
+    Returns
+    -------
+    min_mismatch : float
+        Minimum mismatch.
+    max_mismatch : float
+        Maximum mismatch.
+    min_gammaP : float
+        Gamma_P value at minimum mismatch.
+    max_gammaP : float
+        Gamma_P value at maximum mismatch.
+    min_ind : int, optional
+        Index of minimum mismatch (if return_tc_phic is True).
+    min_phase : float, optional
+        Phase at minimum mismatch (if return_tc_phic is True).
     """
     
     gammaP_arr, mismatch_arr, ind_arr, phase_m_arr = opt_mismatch_gammaP(rp_params, np_params, size_of_gammaP_arr)
@@ -200,17 +229,23 @@ def opt_mismatch_extremas_gammaP(rp_params, np_params, size_of_gammaP_arr, retur
 
 
 
-def get_SNRs(rp_params, np_params, redshift = 100)->dict:
-    """ Get SNRs for RP signal and NP signal
-    _______________________________________________________________________________________
-    Parameters used:
-    rp_params : dict : Regular precession parameters
-    np_params : dict : Non-precessing parameters
-    _______________________________________________________________________________________
-    Returns:
-    SNR_dict : dict : SNR values for RP signal, NP signal and cross terms
-    _______________________________________________________________________________________
-    SNR values for RP signal and NP signal along with cross terms -- Cross terms don't yield SNR
+def get_SNRs(rp_params, np_params, redshift=100) -> dict:
+    """
+    Get SNRs for regular precession (RP) and non-precessing (NP) signals, and cross terms.
+
+    Parameters
+    ----------
+    rp_params : dict
+        Regular precession parameters.
+    np_params : dict
+        Non-precessing parameters.
+    redshift : float, optional
+        Redshift (default 100, which means no redshift correction).
+
+    Returns
+    -------
+    SNR_dict : dict
+        Dictionary with SNR values for RP, NP, and cross terms.
     """
     f_cut = Regular_precession(rp_params).get_f_cut()
     f_range = np.arange(20, f_cut, 0.25)
@@ -251,19 +286,26 @@ def get_SNRs(rp_params, np_params, redshift = 100)->dict:
 
 
 def lindblom_inequality(rp_params, np_params, size_of_gammaP_arr, rp_SNR_term = True, np_SNR_term = False):
-    """ Lindblom inequality
-    ____________________________________________________________________________________________
-    Parameters used:
-    rp_params : dict : Regular precession parameters
-    np_params : dict : Non-precessing parameters
-    size_of_gammaP_arr : int : size of gammaP array
-    cross_SNR_term : bool : cross SNR term
-    rp_SNR_term : bool : RP SNR term
-    np_SNR_term : bool : NP SNR term
-    ____________________________________________________________________________________________
-    Returns:
-    lindblom : float : lindblom inequality value
-    ____________________________________________________________________________________________
+    """
+    Compute the Lindblom inequality for waveform distinguishability.
+
+    Parameters
+    ----------
+    rp_params : dict
+        Regular precession parameters.
+    np_params : dict
+        Non-precessing parameters.
+    size_of_gammaP_arr : int
+        Size of gamma_P array.
+    rp_SNR_term : bool, optional
+        Use RP SNR term (default True).
+    np_SNR_term : bool, optional
+        Use NP SNR term (default False).
+
+    Returns
+    -------
+    lindblom : float or None
+        Value of the Lindblom inequality, or None if no term selected.
     """
     mismatch_min = opt_mismatch_extremas_gammaP(rp_params, np_params, size_of_gammaP_arr, return_tc_phic = False)
     SNR_dict = get_SNRs(rp_params, np_params)
@@ -287,20 +329,30 @@ def lindblom_inequality(rp_params, np_params, size_of_gammaP_arr, rp_SNR_term = 
 # Some utilities
 
 def same_total_mass_diff_chirp(q, mcz, rp_params, np_params):
-    """ Varying q while keeping total mass constant, returns new param dict and new chirp mass along with eta
-    _______________________________________________________________________________________
-    Parameters used:
-    q : float : mass ratio
-    mcz : float : chirp mass
-    rp_params : dict : Regular precession parameters
-    np_params : dict : Non-precessing parameters
-    _______________________________________________________________________________________
-    Returns:
-    rp_params : dict : Regular precession parameters
-    np_params : dict : Non-precessing parameters
-    mcz_new : float : new chirp mass
-    eta : float : eta
-    _______________________________________________________________________________________
+    """
+    Vary q while keeping total mass constant. Returns new parameter dicts and chirp mass.
+
+    Parameters
+    ----------
+    q : float
+        Mass ratio.
+    mcz : float
+        Chirp mass.
+    rp_params : dict
+        Regular precession parameters.
+    np_params : dict
+        Non-precessing parameters.
+
+    Returns
+    -------
+    rp_params : dict
+        Updated regular precession parameters.
+    np_params : dict
+        Updated non-precessing parameters.
+    mcz_new : float
+        New chirp mass.
+    eta : float
+        Symmetric mass ratio.
     """
     eta = q/(1+q)**2
     default_mcz = mcz
@@ -311,15 +363,19 @@ def same_total_mass_diff_chirp(q, mcz, rp_params, np_params):
     return rp_params, np_params, mcz_new, eta
 
 
-def redshift_to_luminosity_distance(z)->float:
+def redshift_to_luminosity_distance(z) -> float:
     """
     Convert redshift to luminosity distance in standard Lambda CDM cosmology.
-    _______________________________________________________________________________________    
-    Parameters used:
-    z : float : redshift
-    _______________________________________________________________________________________
-    Returns:    
-    luminosity_distance : float : luminosity distance in Gpc
+
+    Parameters
+    ----------
+    z : float
+        Redshift.
+
+    Returns
+    -------
+    luminosity_distance : float
+        Luminosity distance in Gpc.
     """
     # Define the cosmology
     cosmo = FlatLambdaCDM(H0=67.4, Om0=0.315) # Planck 2018 results
@@ -328,16 +384,21 @@ def redshift_to_luminosity_distance(z)->float:
 
 
 
-def redshifted_new_params(z, rp_params)->dict:
+def redshifted_new_params(z, rp_params) -> dict:
     """
-    Get redshifted params
-    _______________________________________________________________________________________    
-    Parameters used:
-    z : float : redshift
-    rp_params : dict : Regular precession parameters
-    _______________________________________________________________________________________
-    Returns:    
-    rp_params : dict : Regular precession parameters
+    Get redshifted parameters for a system.
+
+    Parameters
+    ----------
+    z : float
+        Redshift.
+    rp_params : dict
+        Regular precession parameters.
+
+    Returns
+    -------
+    rp_params : dict
+        Updated regular precession parameters with redshifted mass and distance.
     """
     rp_params["dist"] = redshift_to_luminosity_distance(z)*giga_parsec
     old_chirp = rp_params["mcz"]

@@ -1,8 +1,0 @@
-overleaf:
-    id: 68b6e69ac66ee05d148a7712
-    push:
-        - src/tex/figures
-        - src/tex/output
-    pull:
-        - src/tex/main.tex
-        - src/tex/bibme.bib
