@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime
 
 # -- Path setup --------------------------------------------------------------
-PROJECT_ROOT = Path(__file__).parents[2].resolve()   # docs/source -> docs -> repo root
+PROJECT_ROOT = Path(__file__).parents[1].resolve()   # docs/ -> repo root
 SRC_PATH = PROJECT_ROOT / "src"
 sys.path.insert(0, str(SRC_PATH))  # make `src` importable
 
