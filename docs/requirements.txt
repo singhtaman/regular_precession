@@ -4,3 +4,4 @@ numpydoc
 sphinx-autodoc-typehints
 myst-parser
 nbsphinx
+numpy
