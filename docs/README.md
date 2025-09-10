@@ -1,37 +1,30 @@
 # Documentation for `regular_precession`
 
-This folder is intended for project documentation. You can expand it into a full documentation site using tools like [Sphinx](https://www.sphinx-doc.org/) or [MkDocs](https://www.mkdocs.org/).
+This directory contains the Sphinx documentation source for the `regular_precession` project.
 
-## Suggested Structure
+## How to Build the Documentation
 
-- `index.md` or `index.rst`: Main entry point for documentation.
-- `installation.md`: Detailed installation instructions, including dependencies.
-- `usage.md`: How to use the main scripts, classes, and notebooks.
-- `api/`: (optional) Auto-generated API documentation from your Python docstrings.
-- `examples/`: (optional) Example scripts or notebook guides.
+1. Install the required dependencies:
+   ```bash
+   pip install sphinx sphinx_rtd_theme==1.2.2 nbsphinx numpydoc sphinx-autodoc-typehints myst-parser
+   ```
+   If you use Jupyter notebooks:
+   ```bash
+   pip install nbconvert ipykernel
+   ```
 
-## Getting Started
+2. Build the HTML documentation:
+   ```bash
+   sphinx-build -b html . _build
+   # or
+   make html
+   ```
 
-1. Place your main documentation files here.
-2. If using Sphinx, run `sphinx-quickstart` in this directory.
-3. If using MkDocs, run `mkdocs new .` in this directory.
+3. Open the documentation:
+   Open `_build/index.html` in your web browser.
 
-## Quick Start Example
-
-- To build HTML docs with Sphinx:
-  ```sh
-  cd docs
-  sphinx-quickstart
-  # Edit conf.py and index.rst as needed
-  make html
-  ```
-- To build with MkDocs:
-  ```sh
-  cd docs
-  mkdocs new .
-  mkdocs serve
-  ```
-
----
-
-For now, see the main `README.md` in the repo root for a project overview.
+## Notes
+- All documentation source files are in this folder.
+- Edit `.rst` or `.md` files here to update the docs.
+- Configuration is in `conf.py`.
+- For more, see the [Sphinx documentation](https://www.sphinx-doc.org/).

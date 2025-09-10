@@ -1,0 +1,6 @@
+sphinx>=6
+sphinx-rtd-theme
+numpydoc
+sphinx-autodoc-typehints
+myst-parser
+nbsphinx
