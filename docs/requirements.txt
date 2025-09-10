@@ -1,10 +1,10 @@
-sphinx>=6
-sphinx-rtd-theme
+sphinx==6.2.1
+sphinx_rtd_theme==1.2.2
 numpydoc
-sphinx-autodoc-typehints
-myst-parser
 nbsphinx
+myst-parser
+sphinx-autodoc-typehints
 numpy
 scipy
-pycbc
 astropy
+pycbc
