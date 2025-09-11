@@ -10,9 +10,18 @@ The main scientific code is in Python modules in the repository root. Example us
 
    from regular_precession import Regular_precession
    params = {
-       'theta_S': 0.5, 'phi_S': 0.0, 'theta_J': 1.0, 'phi_J': 0.5,
-       'mcz': 10, 'dist': 1.5, 'eta': 0.25, 't_c': 0, 'phi_c': 0,
-       'theta_tilde': 0.1, 'omega_tilde': 0.2, 'gamma_P': 0.0
+       'theta_S': 0.5, 
+       'phi_S': 0.0, 
+       'theta_J': 1.0, 
+       'phi_J': 0.5,
+       'mcz': 10, 
+       'dist': 1.5, 
+       'eta': 0.25, 
+       't_c': 0, 
+       'phi_c': 0,
+       'theta_tilde': 4.0, 
+       'omega_tilde': 2.0, 
+       'gamma_P': 0.0
    }
    rp = Regular_precession(params)
    amp = rp.amplitude(30)

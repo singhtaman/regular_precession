@@ -12,18 +12,9 @@ import numpy as np
 error_handler = np.seterr(invalid="raise")
 
 # Constants
-solar_mass = 4.92624076 * 1e-6
-"""
-Solar mass in seconds.
-"""
-giga_parsec = 1.02927125 * 1e17
-"""
-Gigaparsec in seconds.
-"""
-year = 31557600
-"""
-Year in seconds.
-"""
+solar_mass = 4.92624076 * 1e-6          # [solar_mass] = sec
+giga_parsec = 1.02927125 * 1e17         # [giga_parsec] = sec
+year = 31557600                         # [year] = sec
 
 # These systems are used in the paper - Add arXiv number and/or DOI identifier
 
