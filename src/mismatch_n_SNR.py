@@ -6,6 +6,7 @@ This module provides functions to compute mismatches, SNRs, and related quantiti
 
 import numpy as np
 from scipy.integrate import simps
+import sys
 
 from pycbc.filter import optimized_match
 from pycbc.types import FrequencySeries
@@ -13,10 +14,11 @@ from pycbc.types import FrequencySeries
 error_handler = np.seterr(invalid="raise")
 
 # Importing the regular precession class
-from regular_precession import *
+sys.path.insert(0, "../")
+from src.regular_precession import *
 
 # Importing system parameters
-from systems_lib import *
+from src.systems_lib import *
 
 # For cosmology: converting redshift to luminosity distance
 from astropy.cosmology import FlatLambdaCDM

@@ -1,6 +1,7 @@
 import numpy as np
 
 import precession
+import sys
 
 error_handler = np.seterr(invalid="raise")
 
@@ -9,13 +10,14 @@ giga_parsec = 1.02927125 * 1e17             # [giga_parsec] = sec
 year = 31557600                             # [year] = sec
 
 # Importing the regular precession class
-from regular_precession import *
+sys.path.insert(0, "../")
+from src.regular_precession import *
 
 # Importing system parameters
-from systems_lib import *
+from src.systems_lib import *
 
 # Importing the mismatch_SNR script functions
-from mismatch_n_SNR import *
+from src.mismatch_n_SNR import *
 
 
 def random_angles_generator():
