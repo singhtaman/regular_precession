@@ -2,7 +2,7 @@
 Regular Precession: When L moves in a cone around J with an opening angle theta_tilde that changes on a radiation reaction timescale,
 with frequency omega_tilde (also changing on the same timescale) and a phase gamma_P.
 
-Model presented in following paper : *Add arXiv number here or DOI identifier*
+Model presented in following paper : arXiv:2509.10628 [gr-qc]
 """
 
 import numpy as np
@@ -90,7 +90,7 @@ class Regular_precession():
         theta_LJ : float
             Angle between L and J at a given frequency [rad].
         """
-        return 0.1*self.theta_tilde*(f/self.get_f_cut())**(1/3) # Equation 18a  -- Angle between L and J at a given frequency [rad]: theta_LJ = 0.1 * theta_tilde * (f/f_cut)**(1/3)
+        return (0.1/(4*self.eta))*self.theta_tilde*(f/self.get_f_cut())**(1/3) # Equation 18a  -- Angle between L and J at a given frequency [rad]: theta_LJ = 0.1/(4*eta) * theta_tilde * (f/f_cut)**(1/3)
     
     def get_phi_LJ(self, f):
         """
