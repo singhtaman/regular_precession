@@ -6,6 +6,8 @@
   <title>mismatch_n_SNR &mdash; regular_precession 0.1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="canonical" href="https://singhtaman.github.io/regular_precession/_modules/mismatch_n_SNR.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -98,9 +100,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../api.html#regular_precession.Regular_precession.phi_L"><code class="docutils literal notranslate"><span class="pre">Regular_precession.phi_L()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#systems_lib.solar_mass"><code class="docutils literal notranslate"><span class="pre">solar_mass</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#systems_lib.giga_parsec"><code class="docutils literal notranslate"><span class="pre">giga_parsec</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#systems_lib.year"><code class="docutils literal notranslate"><span class="pre">year</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#mismatch_n_SNR.Sn"><code class="docutils literal notranslate"><span class="pre">Sn()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#mismatch_n_SNR.get_mismatch_rp"><code class="docutils literal notranslate"><span class="pre">get_mismatch_rp()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#mismatch_n_SNR.opt_mismatch_gammaP"><code class="docutils literal notranslate"><span class="pre">opt_mismatch_gammaP()</span></code></a></li>
@@ -148,6 +147,7 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">simps</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">pycbc.filter</span><span class="w"> </span><span class="kn">import</span> <span class="n">optimized_match</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pycbc.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">FrequencySeries</span>
@@ -155,10 +155,11 @@
 <span class="n">error_handler</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">seterr</span><span class="p">(</span><span class="n">invalid</span><span class="o">=</span><span class="s2">&quot;raise&quot;</span><span class="p">)</span>
 
 <span class="c1"># Importing the regular precession class</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">regular_precession</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;../&quot;</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">src.regular_precession</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># Importing system parameters</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">systems_lib</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">src.systems_lib</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># For cosmology: converting redshift to luminosity distance</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">astropy.cosmology</span><span class="w"> </span><span class="kn">import</span> <span class="n">FlatLambdaCDM</span>

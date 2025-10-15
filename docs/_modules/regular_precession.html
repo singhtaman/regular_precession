@@ -6,6 +6,8 @@
   <title>regular_precession &mdash; regular_precession 0.1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="canonical" href="https://singhtaman.github.io/regular_precession/_modules/regular_precession.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -98,9 +100,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../api.html#regular_precession.Regular_precession.phi_L"><code class="docutils literal notranslate"><span class="pre">Regular_precession.phi_L()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#systems_lib.solar_mass"><code class="docutils literal notranslate"><span class="pre">solar_mass</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#systems_lib.giga_parsec"><code class="docutils literal notranslate"><span class="pre">giga_parsec</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#systems_lib.year"><code class="docutils literal notranslate"><span class="pre">year</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#mismatch_n_SNR.Sn"><code class="docutils literal notranslate"><span class="pre">Sn()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#mismatch_n_SNR.get_mismatch_rp"><code class="docutils literal notranslate"><span class="pre">get_mismatch_rp()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#mismatch_n_SNR.opt_mismatch_gammaP"><code class="docutils literal notranslate"><span class="pre">opt_mismatch_gammaP()</span></code></a></li>
@@ -144,7 +143,7 @@
 <span class="sd">Regular Precession: When L moves in a cone around J with an opening angle theta_tilde that changes on a radiation reaction timescale,</span>
 <span class="sd">with frequency omega_tilde (also changing on the same timescale) and a phase gamma_P.</span>
 
-<span class="sd">Model presented in following paper : *Add arXiv number here or DOI identifier*</span>
+<span class="sd">Model presented in following paper : arXiv:2509.10628 [gr-qc]</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -232,7 +231,7 @@
 <span class="sd">        theta_LJ : float</span>
 <span class="sd">            Angle between L and J at a given frequency [rad].</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="mf">0.1</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">theta_tilde</span><span class="o">*</span><span class="p">(</span><span class="n">f</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">get_f_cut</span><span class="p">())</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># Equation 18a  -- Angle between L and J at a given frequency [rad]: theta_LJ = 0.1 * theta_tilde * (f/f_cut)**(1/3)</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="mf">0.1</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="p">))</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">theta_tilde</span><span class="o">*</span><span class="p">(</span><span class="n">f</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">get_f_cut</span><span class="p">())</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># Equation 18a  -- Angle between L and J at a given frequency [rad]: theta_LJ = 0.1/(4*eta) * theta_tilde * (f/f_cut)**(1/3)</span></div>
     
 <div class="viewcode-block" id="Regular_precession.get_phi_LJ"><a class="viewcode-back" href="../usage.html#regular_precession.Regular_precession.get_phi_LJ">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_phi_LJ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
