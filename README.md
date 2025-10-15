@@ -152,9 +152,25 @@ pip install lalsuite pycbc
 
 Full API documentation is available in the `docs/` directory. You can build the documentation locally or view the generated HTML files:
 
-- Open `docs/index.html` in your browser for the main documentation
-- `docs/api.html` contains detailed API references
-- `docs/usage.html` provides usage examples
+- **Online**: [singhtaman.github.io/regular_precession](https://singhtaman.github.io/regular_precession)
+- **Local HTML**: Open `docs/index.html` in your browser for the main documentation
+- **API Reference**: `docs/api.html` contains detailed API references
+- **Usage Guide**: `docs/usage.html` provides usage examples
+
+### Building Documentation Locally
+
+To rebuild the documentation after making changes:
+
+```bash
+./rebuild_docs.sh
+```
+
+Or manually with Sphinx:
+
+```bash
+cd docs
+sphinx-build -b html . _build/html
+```
 
 ## Citation
 

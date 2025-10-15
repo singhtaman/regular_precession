@@ -81,10 +81,25 @@ html_theme_options = {
     "navigation_depth": 4,
     "titles_only": False,
     "style_nav_header_background": "#2980B9",
+    "logo_only": False,
+    "display_version": True,
+    "prev_next_buttons_location": "bottom",
+    "style_external_links": False,
+    "vcs_pageview_mode": "",
 }
+
+# Ensure static files are copied
 html_static_path = ["_static"]
 html_show_sourcelink = False
 pygments_style = "sphinx"
+
+# Add custom CSS if needed
+html_css_files = [
+    "custom.css",
+]
+
+# Ensure proper base URL for GitHub Pages
+html_baseurl = "https://singhtaman.github.io/regular_precession/"
 
 # -- Notebook settings -------------------------------------------------------
 nbsphinx_execute = "never"
