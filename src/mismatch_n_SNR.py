@@ -242,7 +242,7 @@ def get_SNRs(rp_params, np_params, redshift=100) -> dict:
     np_params : dict
         Non-precessing parameters.
     redshift : float, optional
-        Redshift (default 100, which means no redshift correction).
+        Redshift (default 100, serves as a placeholder for no redshift correction).
 
     Returns
     -------

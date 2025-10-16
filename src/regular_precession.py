@@ -152,7 +152,7 @@ class Regular_precession():
 
     def precession_angles(self):
         """
-        Compute angles important for the precession model, specifically the angle between J and N, and the angle between the x-axis of the source frame and H in the sky frame. Equations A4, A6a, A6b in the paper (https://arxiv.org/abs/2006.10290).
+        Compute angles important for the precession model, specifically the angle between J and N, and the angle between the x-axis of the source frame and H in the sky frame. Equations A4, A6a, A6b in the paper (https://arxiv.org/abs/2509.10628).
 
         Parameters
         ----------
