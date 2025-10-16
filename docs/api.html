@@ -56,29 +56,6 @@
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#basic-usage">Basic Usage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#jupyter-notebooks">Jupyter Notebooks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#module-regular_precession">regular_precession</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="usage.html#regular_precession.Regular_precession"><code class="docutils literal notranslate"><span class="pre">Regular_precession</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="usage.html#regular_precession.Regular_precession.get_total_mass"><code class="docutils literal notranslate"><span class="pre">Regular_precession.get_total_mass()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="usage.html#regular_precession.Regular_precession.get_f_cut"><code class="docutils literal notranslate"><span class="pre">Regular_precession.get_f_cut()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="usage.html#regular_precession.Regular_precession.get_theta_LJ"><code class="docutils literal notranslate"><span class="pre">Regular_precession.get_theta_LJ()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="usage.html#regular_precession.Regular_precession.get_phi_LJ"><code class="docutils literal notranslate"><span class="pre">Regular_precession.get_phi_LJ()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="usage.html#regular_precession.Regular_precession.amp_prefactor"><code class="docutils literal notranslate"><span class="pre">Regular_precession.amp_prefactor()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="usage.html#regular_precession.Regular_precession.precession_angles"><code class="docutils literal notranslate"><span class="pre">Regular_precession.precession_angles()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="usage.html#regular_precession.Regular_precession.LdotN"><code class="docutils literal notranslate"><span class="pre">Regular_precession.LdotN()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="usage.html#regular_precession.Regular_precession.beam_pattern_amplitude_and_phase"><code class="docutils literal notranslate"><span class="pre">Regular_precession.beam_pattern_amplitude_and_phase()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="usage.html#regular_precession.Regular_precession.amplitude"><code class="docutils literal notranslate"><span class="pre">Regular_precession.amplitude()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="usage.html#regular_precession.Regular_precession.phase_phi_P"><code class="docutils literal notranslate"><span class="pre">Regular_precession.phase_phi_P()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="usage.html#regular_precession.Regular_precession.f_dot"><code class="docutils literal notranslate"><span class="pre">Regular_precession.f_dot()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="usage.html#regular_precession.Regular_precession.integrand_delta_phi"><code class="docutils literal notranslate"><span class="pre">Regular_precession.integrand_delta_phi()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="usage.html#regular_precession.Regular_precession.phase_delta_phi"><code class="docutils literal notranslate"><span class="pre">Regular_precession.phase_delta_phi()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="usage.html#regular_precession.Regular_precession.Psi"><code class="docutils literal notranslate"><span class="pre">Regular_precession.Psi()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="usage.html#regular_precession.Regular_precession.precessing_strain"><code class="docutils literal notranslate"><span class="pre">Regular_precession.precessing_strain()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="usage.html#regular_precession.Regular_precession.cos_theta_L"><code class="docutils literal notranslate"><span class="pre">Regular_precession.cos_theta_L()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="usage.html#regular_precession.Regular_precession.phi_L"><code class="docutils literal notranslate"><span class="pre">Regular_precession.phi_L()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
@@ -162,19 +139,19 @@ with frequency omega_tilde (also changing on the same timescale) and a phase gam
 <dl class="py method">
 <dt class="sig sig-object py" id="regular_precession.Regular_precession.get_total_mass">
 <span class="sig-name descname"><span class="pre">get_total_mass</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/regular_precession.html#Regular_precession.get_total_mass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#regular_precession.Regular_precession.get_total_mass" title="Permalink to this definition"></a></dt>
-<dd><p>Calculate the total mass of the binary system from the chirp mass and symmetric mass ratio.</p>
+<dd><p>Calculate the total mass of the binary system from the chirp mass and symmetric mass ratio [s], M = M_c / eta**(3/5).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>mcz</strong><span class="classifier">float</span></dt><dd><p>Chirp mass [s].</p>
 </dd>
-<dt><strong>eta</strong><span class="classifier">float</span></dt><dd><p>Symmetric mass ratio.</p>
+<dt><strong>eta</strong><span class="classifier">float</span></dt><dd><p>Symmetric mass ratio [dimensionless].</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>total_mass</strong><span class="classifier">float</span></dt><dd><p>Total mass of the binary system [s].</p>
+<dt><strong>total_mass</strong><span class="classifier">float</span></dt><dd><p>Total mass of the binary system.</p>
 </dd>
 </dl>
 </dd>
@@ -184,11 +161,17 @@ with frequency omega_tilde (also changing on the same timescale) and a phase gam
 <dl class="py method">
 <dt class="sig sig-object py" id="regular_precession.Regular_precession.get_f_cut">
 <span class="sig-name descname"><span class="pre">get_f_cut</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/regular_precession.html#Regular_precession.get_f_cut"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#regular_precession.Regular_precession.get_f_cut" title="Permalink to this definition"></a></dt>
-<dd><p>Compute the cut-off frequency where the binary coalesces.</p>
+<dd><p>Compute the cut-off frequency where the binary coalesces, equation 13 in the paper (<a class="reference external" href="https://arxiv.org/pdf/2509.10628">https://arxiv.org/pdf/2509.10628</a>), f_cut = 1/(6**(3/2)*pi*M), where M is the total mass of the binary.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>f_cut</strong><span class="classifier">float</span></dt><dd><p>Cut-off frequency [Hz].</p>
+<dt><strong>get_total_mass</strong><span class="classifier">function call</span></dt><dd><p>Computes the total mass of the binary system given the chirp mass and symmetric mass ratio, M = M_c / eta**(3/5).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>f_cut</strong><span class="classifier">float</span></dt><dd><p>Cut-off frequency.</p>
 </dd>
 </dl>
 </dd>
@@ -198,17 +181,23 @@ with frequency omega_tilde (also changing on the same timescale) and a phase gam
 <dl class="py method">
 <dt class="sig sig-object py" id="regular_precession.Regular_precession.get_theta_LJ">
 <span class="sig-name descname"><span class="pre">get_theta_LJ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/regular_precession.html#Regular_precession.get_theta_LJ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#regular_precession.Regular_precession.get_theta_LJ" title="Permalink to this definition"></a></dt>
-<dd><p>Angle between L and J at a given frequency [rad] in the L-J plane.</p>
+<dd><p>Angle between L and J at a given frequency [rad] in the L-J plane, equation 18a in the paper (<a class="reference external" href="https://arxiv.org/pdf/2509.10628">https://arxiv.org/pdf/2509.10628</a>), theta_LJ = 0.1/(4*eta) * theta_tilde * (f/f_cut)**(1/3), where f_cut is the cut-off frequency, theta_tilde is the dimensionless precession amplitude.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>f</strong><span class="classifier">float</span></dt><dd><p>Frequency where the angle is to be calculated [Hz].</p>
+<dt><strong>f</strong><span class="classifier">float or array_like</span></dt><dd><p>Frequency where the angle is to be calculated [Hz].</p>
+</dd>
+<dt><strong>eta</strong><span class="classifier">float</span></dt><dd><p>Symmetric mass ratio.</p>
+</dd>
+<dt><strong>theta_tilde</strong><span class="classifier">float</span></dt><dd><p>Dimensionless precession amplitude parameter.</p>
+</dd>
+<dt><strong>get_f_cut</strong><span class="classifier">function call</span></dt><dd><p>Computes the cut-off frequency, f_cut = 1/(6**(3/2)*pi*M), where M is the total mass of the binary.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>theta_LJ</strong><span class="classifier">float</span></dt><dd><p>Angle between L and J at a given frequency [rad].</p>
+<dt><strong>theta_LJ</strong><span class="classifier">float or array_like</span></dt><dd><p>Angle between L and J at a given frequency.</p>
 </dd>
 </dl>
 </dd>
@@ -218,17 +207,27 @@ with frequency omega_tilde (also changing on the same timescale) and a phase gam
 <dl class="py method">
 <dt class="sig sig-object py" id="regular_precession.Regular_precession.get_phi_LJ">
 <span class="sig-name descname"><span class="pre">get_phi_LJ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/regular_precession.html#Regular_precession.get_phi_LJ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#regular_precession.Regular_precession.get_phi_LJ" title="Permalink to this definition"></a></dt>
-<dd><p>Angle between projection of L in the x-y plane and x axis in source frame at a given frequency [rad].</p>
+<dd><p>Angle between projection of L in the x-y plane and x axis in source frame at a given frequency [rad], equation 19 in the paper (<a class="reference external" href="https://arxiv.org/pdf/2509.10628">https://arxiv.org/pdf/2509.10628</a>), phi_LJ = gamma_P + int_{f_min}^f (Omega_LJ (df’/dt)**(-1)) df’, where Omega_LJ is the precession frequency.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>f</strong><span class="classifier">float</span></dt><dd><p>Frequency where the angle is to be calculated [Hz].</p>
+<dt><strong>f</strong><span class="classifier">float or array_like</span></dt><dd><p>Frequency where the angle is to be calculated [Hz].</p>
+</dd>
+<dt><strong>omega_tilde</strong><span class="classifier">float</span></dt><dd><p>Dimensionless precession frequency parameter [Dimensionless].</p>
+</dd>
+<dt><strong>mcz</strong><span class="classifier">float</span></dt><dd><p>Chirp mass [s].</p>
+</dd>
+<dt><strong>gamma_P</strong><span class="classifier">float</span></dt><dd><p>Precession phase at reference frequency [rad].</p>
+</dd>
+<dt><strong>get_total_mass</strong><span class="classifier">function call</span></dt><dd><p>Computes the total mass of the binary system, M = M_c / eta**(3/5), given the chirp mass M_c and symmetric mass ratio eta [s].</p>
+</dd>
+<dt><strong>get_f_cut</strong><span class="classifier">function call</span></dt><dd><p>Computes the cut-off frequency, f_cut = 1/(6**(3/2)*pi*M), where M is the total mass of the binary [Hz].</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>phi_LJ</strong><span class="classifier">float</span></dt><dd><p>Angle between projection of L in the x-y plane and x axis in source frame at a given frequency [rad].</p>
+<dt><strong>phi_LJ</strong><span class="classifier">float or array_like</span></dt><dd><p>Angle between projection of L in the x-y plane and x axis in source frame at a given frequency.</p>
 </dd>
 </dl>
 </dd>
@@ -238,16 +237,24 @@ with frequency omega_tilde (also changing on the same timescale) and a phase gam
 <dl class="py method">
 <dt class="sig sig-object py" id="regular_precession.Regular_precession.amp_prefactor">
 <span class="sig-name descname"><span class="pre">amp_prefactor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/regular_precession.html#Regular_precession.amp_prefactor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#regular_precession.Regular_precession.amp_prefactor" title="Permalink to this definition"></a></dt>
-<dd><p>Amplitude prefactor calculated using chirp mass and distance.</p>
+<dd><p>Amplitude prefactor calculated using chirp mass and distance, equation 6 in the paper (<a class="reference external" href="https://arxiv.org/pdf/2509.10628">https://arxiv.org/pdf/2509.10628</a>), A = sqrt(5/96) * (pi**(-2/3)) * (M_c**(5/6)) / D_L, where M_c is the chirp mass and D_L is the luminosity distance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
+<dt><strong>mcz</strong><span class="classifier">float</span></dt><dd><p>Chirp mass [s].</p>
+</dd>
+<dt><strong>dist</strong><span class="classifier">float</span></dt><dd><p>Luminosity distance [s].</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt><strong>amp_prefactor</strong><span class="classifier">float</span></dt><dd><p>Amplitude prefactor.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -255,10 +262,22 @@ with frequency omega_tilde (also changing on the same timescale) and a phase gam
 <dl class="py method">
 <dt class="sig sig-object py" id="regular_precession.Regular_precession.precession_angles">
 <span class="sig-name descname"><span class="pre">precession_angles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/regular_precession.html#Regular_precession.precession_angles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#regular_precession.Regular_precession.precession_angles" title="Permalink to this definition"></a></dt>
-<dd><p>Compute angles important for the precession model.</p>
+<dd><p>Compute angles important for the precession model, specifically the angle between J and N, and the angle between the x-axis of the source frame and H in the sky frame. Equations A4, A6a, A6b in the paper (<a class="reference external" href="https://arxiv.org/abs/2006.10290">https://arxiv.org/abs/2006.10290</a>).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
+<dt><strong>theta_J</strong><span class="classifier">float</span></dt><dd><p>Binary plane inclination - polar angle for J in detector frame [rad].</p>
+</dd>
+<dt><strong>phi_J</strong><span class="classifier">float</span></dt><dd><p>Binary plane azimuthal angle for J in detector frame [rad].</p>
+</dd>
+<dt><strong>theta_S</strong><span class="classifier">float</span></dt><dd><p>Sky inclination - polar angle for line of sight in detector frame [rad].</p>
+</dd>
+<dt><strong>phi_S</strong><span class="classifier">float</span></dt><dd><p>Sky azimuthal angle for line of sight in detector frame [rad].</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt><strong>cos_i_JN</strong><span class="classifier">float</span></dt><dd><p>Cosine of the angle between the total angular momentum and the line of sight.</p>
 </dd>
 <dt><strong>sin_i_JN</strong><span class="classifier">float</span></dt><dd><p>Sine of the angle between the total angular momentum and the line of sight.</p>
@@ -275,17 +294,23 @@ with frequency omega_tilde (also changing on the same timescale) and a phase gam
 <dl class="py method">
 <dt class="sig sig-object py" id="regular_precession.Regular_precession.LdotN">
 <span class="sig-name descname"><span class="pre">LdotN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/regular_precession.html#Regular_precession.LdotN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#regular_precession.Regular_precession.LdotN" title="Permalink to this definition"></a></dt>
-<dd><p>Cosine of the angle between L and N.</p>
+<dd><p>Cosine of the angle between L and N, equation A10 in the paper (<a class="reference external" href="https://arxiv.org/pdf/2509.10628">https://arxiv.org/pdf/2509.10628</a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>f</strong><span class="classifier">float</span></dt><dd><p>Frequency at which to calculate the dot product [Hz].</p>
+<dt><strong>f</strong><span class="classifier">float or array_like</span></dt><dd><p>Frequency at which to calculate the dot product [Hz].</p>
+</dd>
+<dt><strong>get_theta_LJ</strong><span class="classifier">function call</span></dt><dd><p>Computes the angle between L and J, equation 18a.</p>
+</dd>
+<dt><strong>get_phi_LJ</strong><span class="classifier">function call</span></dt><dd><p>Computes the azimuthal angle of L in source frame, equation 18b.</p>
+</dd>
+<dt><strong>precession_angles</strong><span class="classifier">function call</span></dt><dd><p>Computes orientation angles, equations A4, A6a, A6b.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>LdotN</strong><span class="classifier">float</span></dt><dd><p>Dot product of L and N.</p>
+<dt><strong>LdotN</strong><span class="classifier">float or array_like</span></dt><dd><p>Dot product of L and N (cosine of angle between L and N).</p>
 </dd>
 </dl>
 </dd>
@@ -295,21 +320,31 @@ with frequency omega_tilde (also changing on the same timescale) and a phase gam
 <dl class="py method">
 <dt class="sig sig-object py" id="regular_precession.Regular_precession.beam_pattern_amplitude_and_phase">
 <span class="sig-name descname"><span class="pre">beam_pattern_amplitude_and_phase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/regular_precession.html#Regular_precession.beam_pattern_amplitude_and_phase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#regular_precession.Regular_precession.beam_pattern_amplitude_and_phase" title="Permalink to this definition"></a></dt>
-<dd><p>Beam pattern functions for + and x polarizations.</p>
+<dd><p>Beam pattern functions for + and x polarizations, equations 3, 4a, 4b in the paper (<a class="reference external" href="https://arxiv.org/pdf/2509.10628">https://arxiv.org/pdf/2509.10628</a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>f</strong><span class="classifier">float</span></dt><dd><p>Frequency at which to calculate the beam pattern [Hz].</p>
+<dt><strong>f</strong><span class="classifier">float or array_like</span></dt><dd><p>Frequency at which to calculate the beam pattern [Hz].</p>
+</dd>
+<dt><strong>theta_S</strong><span class="classifier">float</span></dt><dd><p>Sky inclination angle [rad].</p>
+</dd>
+<dt><strong>phi_S</strong><span class="classifier">float</span></dt><dd><p>Sky azimuthal angle [rad].</p>
+</dd>
+<dt><strong>get_theta_LJ</strong><span class="classifier">function call</span></dt><dd><p>Computes the angle between L and J, equation 18a.</p>
+</dd>
+<dt><strong>get_phi_LJ</strong><span class="classifier">function call</span></dt><dd><p>Computes the azimuthal angle of L in source frame, equation 18b.</p>
+</dd>
+<dt><strong>precession_angles</strong><span class="classifier">function call</span></dt><dd><p>Computes orientation angles, equations A4, A6a, A6b.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>C_amp</strong><span class="classifier">float</span></dt><dd><p>Amplitude of the beam pattern functions for + and x polarizations.</p>
+<dt><strong>C_amp</strong><span class="classifier">float or array_like</span></dt><dd><p>Amplitude of the beam pattern functions for + and x polarizations.</p>
 </dd>
-<dt><strong>sin_2pa</strong><span class="classifier">float</span></dt><dd><p>Sine of 2 times the polarization angle + alpha (for x polarization).</p>
+<dt><strong>sin_2pa</strong><span class="classifier">float or array_like</span></dt><dd><p>Sine of 2 times the polarization angle + alpha (for x polarization).</p>
 </dd>
-<dt><strong>cos_2pa</strong><span class="classifier">float</span></dt><dd><p>Cosine of 2 times the polarization angle + alpha (for + polarization).</p>
+<dt><strong>cos_2pa</strong><span class="classifier">float or array_like</span></dt><dd><p>Cosine of 2 times the polarization angle + alpha (for + polarization).</p>
 </dd>
 </dl>
 </dd>
@@ -319,17 +354,23 @@ with frequency omega_tilde (also changing on the same timescale) and a phase gam
 <dl class="py method">
 <dt class="sig sig-object py" id="regular_precession.Regular_precession.amplitude">
 <span class="sig-name descname"><span class="pre">amplitude</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/regular_precession.html#Regular_precession.amplitude"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#regular_precession.Regular_precession.amplitude" title="Permalink to this definition"></a></dt>
-<dd><p>GW amplitude as in equation 10 (Apostolatos+ 1994).</p>
+<dd><p>GW amplitude, equation 10 in the paper (<a class="reference external" href="https://arxiv.org/pdf/2509.10628">https://arxiv.org/pdf/2509.10628</a>) - also in Apostolatos+ 1994 as equation 7a.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>f</strong><span class="classifier">float</span></dt><dd><p>Frequency at which the amplitude is to be calculated [Hz].</p>
+<dt><strong>f</strong><span class="classifier">float or array_like</span></dt><dd><p>Frequency at which the amplitude is to be calculated [Hz].</p>
+</dd>
+<dt><strong>LdotN</strong><span class="classifier">function call</span></dt><dd><p>Computes the dot product between L and N, equation A10.</p>
+</dd>
+<dt><strong>beam_pattern_amplitude_and_phase</strong><span class="classifier">function call</span></dt><dd><p>Computes beam pattern functions, equations 3, 4a, 4b.</p>
+</dd>
+<dt><strong>amp_prefactor</strong><span class="classifier">function call</span></dt><dd><p>Computes amplitude prefactor, equation 6.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>amp</strong><span class="classifier">float</span></dt><dd><p>Amplitude of the GW signal.</p>
+<dt><strong>amp</strong><span class="classifier">float or array_like</span></dt><dd><p>Amplitude of the GW signal.</p>
 </dd>
 </dl>
 </dd>
@@ -342,17 +383,21 @@ with frequency omega_tilde (also changing on the same timescale) and a phase gam
 <dl class="py method">
 <dt class="sig sig-object py" id="regular_precession.Regular_precession.phase_phi_P">
 <span class="sig-name descname"><span class="pre">phase_phi_P</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/regular_precession.html#Regular_precession.phase_phi_P"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#regular_precession.Regular_precession.phase_phi_P" title="Permalink to this definition"></a></dt>
-<dd><p>Polarization phase of the GW signal as in equation 11 (Apostolatos+ 1994).</p>
+<dd><p>Polarization phase of the GW signal, equation 11 in the paper (<a class="reference external" href="https://arxiv.org/pdf/2509.10628">https://arxiv.org/pdf/2509.10628</a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>f</strong><span class="classifier">float</span></dt><dd><p>Frequency at which the phase is to be calculated [Hz].</p>
+<dt><strong>f</strong><span class="classifier">float or array_like</span></dt><dd><p>Frequency at which the phase is to be calculated [Hz].</p>
+</dd>
+<dt><strong>LdotN</strong><span class="classifier">function call</span></dt><dd><p>Computes the dot product between L and N, equation A10.</p>
+</dd>
+<dt><strong>beam_pattern_amplitude_and_phase</strong><span class="classifier">function call</span></dt><dd><p>Computes beam pattern functions, equations 3, 4a, 4b.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>phi_p</strong><span class="classifier">float</span></dt><dd><p>Polarization phase of the GW signal.</p>
+<dt><strong>phi_p</strong><span class="classifier">float or array_like</span></dt><dd><p>Polarization phase of the GW signal.</p>
 </dd>
 </dl>
 </dd>
@@ -362,17 +407,19 @@ with frequency omega_tilde (also changing on the same timescale) and a phase gam
 <dl class="py method">
 <dt class="sig sig-object py" id="regular_precession.Regular_precession.f_dot">
 <span class="sig-name descname"><span class="pre">f_dot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/regular_precession.html#Regular_precession.f_dot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#regular_precession.Regular_precession.f_dot" title="Permalink to this definition"></a></dt>
-<dd><p>df/dt from Cutler &amp; Flanagan 1994.</p>
+<dd><p>df/dt from Cutler &amp; Flanagan 1994, equation 20 in the paper (<a class="reference external" href="https://arxiv.org/pdf/2509.10628">https://arxiv.org/pdf/2509.10628</a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>f</strong><span class="classifier">float</span></dt><dd><p>Frequency at which the derivative is to be calculated [Hz].</p>
+<dt><strong>f</strong><span class="classifier">float or array_like</span></dt><dd><p>Frequency at which the derivative is to be calculated [Hz].</p>
+</dd>
+<dt><strong>mcz</strong><span class="classifier">float</span></dt><dd><p>Chirp mass [s].</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>f_dot</strong><span class="classifier">float</span></dt><dd><p>df/dt at a given frequency.</p>
+<dt><strong>f_dot</strong><span class="classifier">float or array_like</span></dt><dd><p>df/dt at a given frequency [Hz/s].</p>
 </dd>
 </dl>
 </dd>
@@ -382,19 +429,35 @@ with frequency omega_tilde (also changing on the same timescale) and a phase gam
 <dl class="py method">
 <dt class="sig sig-object py" id="regular_precession.Regular_precession.integrand_delta_phi">
 <span class="sig-name descname"><span class="pre">integrand_delta_phi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/regular_precession.html#Regular_precession.integrand_delta_phi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#regular_precession.Regular_precession.integrand_delta_phi" title="Permalink to this definition"></a></dt>
-<dd><p>Integrand for delta phi p (Apostolatos 1994, appendix A - Eq A18).</p>
+<dd><p>Integrand for delta phi p, equation 12 and A19 in the paper (<a class="reference external" href="https://arxiv.org/pdf/2509.10628">https://arxiv.org/pdf/2509.10628</a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>y</strong><span class="classifier">float</span></dt><dd><p>Variable for the integral (default is 0).</p>
+<dt><strong>y</strong><span class="classifier">float</span></dt><dd><p>Variable for the integral (typically 0 for initial condition).</p>
 </dd>
-<dt><strong>f</strong><span class="classifier">float</span></dt><dd><p>Frequency at which the integrand is to be calculated [Hz].</p>
+<dt><strong>f</strong><span class="classifier">float or array_like</span></dt><dd><p>Frequency at which the integrand is to be calculated [Hz].</p>
+</dd>
+<dt><strong>omega_tilde</strong><span class="classifier">float</span></dt><dd><p>Dimensionless precession frequency parameter.</p>
+</dd>
+<dt><strong>LdotN</strong><span class="classifier">function call</span></dt><dd><p>Computes the dot product between L and N, equation A10.</p>
+</dd>
+<dt><strong>precession_angles</strong><span class="classifier">function call</span></dt><dd><p>Computes orientation angles, equations A11, A12, A13.</p>
+</dd>
+<dt><strong>f_dot</strong><span class="classifier">function call</span></dt><dd><p>Computes frequency derivative, equation 20.</p>
+</dd>
+<dt><strong>get_theta_LJ</strong><span class="classifier">function call</span></dt><dd><p>Computes the angle between L and J, equation A14.</p>
+</dd>
+<dt><strong>get_phi_LJ</strong><span class="classifier">function call</span></dt><dd><p>Computes the azimuthal angle of L in source frame, equation A15.</p>
+</dd>
+<dt><strong>get_f_cut</strong><span class="classifier">function call</span></dt><dd><p>Computes the cut-off frequency, equation A16.</p>
+</dd>
+<dt><strong>get_total_mass</strong><span class="classifier">function call</span></dt><dd><p>Computes the total mass of the binary, equation A17.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>integrand_delta_phi</strong><span class="classifier">float</span></dt><dd><p>Integrand for the delta phi p.</p>
+<dt><strong>integrand_delta_phi</strong><span class="classifier">float or array_like</span></dt><dd><p>Integrand for the delta phi p.</p>
 </dd>
 </dl>
 </dd>
@@ -404,17 +467,19 @@ with frequency omega_tilde (also changing on the same timescale) and a phase gam
 <dl class="py method">
 <dt class="sig sig-object py" id="regular_precession.Regular_precession.phase_delta_phi">
 <span class="sig-name descname"><span class="pre">phase_delta_phi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/regular_precession.html#Regular_precession.phase_delta_phi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#regular_precession.Regular_precession.phase_delta_phi" title="Permalink to this definition"></a></dt>
-<dd><p>Integrate the delta_phi integrand from 0 to f to get the phase correction.</p>
+<dd><p>Integrates the delta_phi integrand from 0 to f to get the phase correction to precession phase, integrating equation 12/A19 in the paper (<a class="reference external" href="https://arxiv.org/pdf/2509.10628">https://arxiv.org/pdf/2509.10628</a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>f</strong><span class="classifier">float</span></dt><dd><p>Frequency at which the phase is to be calculated [Hz].</p>
+<dt><strong>f</strong><span class="classifier">float or array_like</span></dt><dd><p>Frequency at which the phase is to be calculated [Hz].</p>
+</dd>
+<dt><strong>integrand_delta_phi</strong><span class="classifier">function call</span></dt><dd><p>Computes the integrand for phase correction, equation 12/A19.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>integral</strong><span class="classifier">float</span></dt><dd><p>Integral of the integrand_delta_phi.</p>
+<dt><strong>integral</strong><span class="classifier">float or array_like</span></dt><dd><p>Integral of the integrand_delta_phi.</p>
 </dd>
 </dl>
 </dd>
@@ -424,17 +489,27 @@ with frequency omega_tilde (also changing on the same timescale) and a phase gam
 <dl class="py method">
 <dt class="sig sig-object py" id="regular_precession.Regular_precession.Psi">
 <span class="sig-name descname"><span class="pre">Psi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/regular_precession.html#Regular_precession.Psi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#regular_precession.Regular_precession.Psi" title="Permalink to this definition"></a></dt>
-<dd><p>GW phase up to 2 PN order.</p>
+<dd><p>GW phase up to 2 PN order, equation 7 in <a class="reference external" href="https://arxiv.org/pdf/2509.10628">https://arxiv.org/pdf/2509.10628</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>f</strong><span class="classifier">float</span></dt><dd><p>Frequency at which the phase is to be calculated [Hz].</p>
+<dt><strong>f</strong><span class="classifier">float or array_like</span></dt><dd><p>Frequency at which the phase is to be calculated [Hz].</p>
+</dd>
+<dt><strong>mcz</strong><span class="classifier">float</span></dt><dd><p>Chirp mass [s].</p>
+</dd>
+<dt><strong>eta</strong><span class="classifier">float</span></dt><dd><p>Symmetric mass ratio.</p>
+</dd>
+<dt><strong>t_c</strong><span class="classifier">float</span></dt><dd><p>Coalescence time [s].</p>
+</dd>
+<dt><strong>phi_c</strong><span class="classifier">float</span></dt><dd><p>Coalescence phase [rad].</p>
+</dd>
+<dt><strong>get_total_mass</strong><span class="classifier">function call</span></dt><dd><p>Computes the total mass of the binary.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>Psi</strong><span class="classifier">float</span></dt><dd><p>GW phase of the GW signal.</p>
+<dt><strong>Psi</strong><span class="classifier">float or array_like</span></dt><dd><p>GW phase of the GW signal.</p>
 </dd>
 </dl>
 </dd>
@@ -444,15 +519,23 @@ with frequency omega_tilde (also changing on the same timescale) and a phase gam
 <dl class="py method">
 <dt class="sig sig-object py" id="regular_precession.Regular_precession.precessing_strain">
 <span class="sig-name descname"><span class="pre">precessing_strain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequencySeries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/regular_precession.html#Regular_precession.precessing_strain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#regular_precession.Regular_precession.precessing_strain" title="Permalink to this definition"></a></dt>
-<dd><p>GW signal with regular precession.</p>
+<dd><p>GW signal with regular precession, equation 9 in <a class="reference external" href="https://arxiv.org/pdf/2509.10628">https://arxiv.org/pdf/2509.10628</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>f</strong><span class="classifier">float</span></dt><dd><p>Frequency at which the strain is to be calculated [Hz].</p>
+<dt><strong>f</strong><span class="classifier">float or array_like</span></dt><dd><p>Frequency at which the strain is to be calculated [Hz].</p>
 </dd>
-<dt><strong>delta_f</strong><span class="classifier">float, optional</span></dt><dd><p>Frequency resolution [Hz].</p>
+<dt><strong>delta_f</strong><span class="classifier">float, optional</span></dt><dd><p>Frequency resolution [Hz]. Default is 0.25.</p>
 </dd>
-<dt><strong>frequencySeries</strong><span class="classifier">bool, optional</span></dt><dd><p>Whether to return a FrequencySeries object (default True).</p>
+<dt><strong>frequencySeries</strong><span class="classifier">bool, optional</span></dt><dd><p>Whether to return a FrequencySeries object. Default is True.</p>
+</dd>
+<dt><strong>amplitude</strong><span class="classifier">function call</span></dt><dd><p>Computes the GW amplitude, equation 10.</p>
+</dd>
+<dt><strong>Psi</strong><span class="classifier">function call</span></dt><dd><p>Computes the GW phase, equation 7.</p>
+</dd>
+<dt><strong>phase_phi_P</strong><span class="classifier">function call</span></dt><dd><p>Computes the polarization phase, equation 11.</p>
+</dd>
+<dt><strong>phase_delta_phi</strong><span class="classifier">function call</span></dt><dd><p>Computes the precession phase correction, equation A19.</p>
 </dd>
 </dl>
 </dd>
@@ -472,13 +555,21 @@ with frequency omega_tilde (also changing on the same timescale) and a phase gam
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>f</strong><span class="classifier">float</span></dt><dd><p>Frequency at which the angle is to be calculated [Hz].</p>
+<dt><strong>f</strong><span class="classifier">float or array_like</span></dt><dd><p>Frequency at which the angle is to be calculated [Hz].</p>
+</dd>
+<dt><strong>theta_S</strong><span class="classifier">float</span></dt><dd><p>Sky inclination angle [rad].</p>
+</dd>
+<dt><strong>get_theta_LJ</strong><span class="classifier">function call</span></dt><dd><p>Computes the angle between L and J.</p>
+</dd>
+<dt><strong>get_phi_LJ</strong><span class="classifier">function call</span></dt><dd><p>Computes the azimuthal angle of L in source frame.</p>
+</dd>
+<dt><strong>precession_angles</strong><span class="classifier">function call</span></dt><dd><p>Computes orientation angles, equations A4, A6a, A6b.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>L_z</strong><span class="classifier">float</span></dt><dd><p>Cosine of the polar angle for the orbital angular momentum vector.</p>
+<dt><strong>L_z</strong><span class="classifier">float or array_like</span></dt><dd><p>Cosine of the polar angle for the orbital angular momentum vector.</p>
 </dd>
 </dl>
 </dd>
@@ -488,17 +579,27 @@ with frequency omega_tilde (also changing on the same timescale) and a phase gam
 <dl class="py method">
 <dt class="sig sig-object py" id="regular_precession.Regular_precession.phi_L">
 <span class="sig-name descname"><span class="pre">phi_L</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/regular_precession.html#Regular_precession.phi_L"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#regular_precession.Regular_precession.phi_L" title="Permalink to this definition"></a></dt>
-<dd><p>Evolution of the orbital angular momentum vector in the detector frame (phase).</p>
+<dd><p>Evolution of the orbital angular momentum vector in the detector frame (azimuthal angle).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>f</strong><span class="classifier">float</span></dt><dd><p>Frequency at which the angle is to be calculated [Hz].</p>
+<dt><strong>f</strong><span class="classifier">float or array_like</span></dt><dd><p>Frequency at which the angle is to be calculated [Hz].</p>
+</dd>
+<dt><strong>theta_S</strong><span class="classifier">float</span></dt><dd><p>Sky inclination angle [rad].</p>
+</dd>
+<dt><strong>phi_S</strong><span class="classifier">float</span></dt><dd><p>Sky azimuthal angle [rad].</p>
+</dd>
+<dt><strong>get_theta_LJ</strong><span class="classifier">function call</span></dt><dd><p>Computes the angle between L and J, equation 18a.</p>
+</dd>
+<dt><strong>get_phi_LJ</strong><span class="classifier">function call</span></dt><dd><p>Computes the azimuthal angle of L in source frame, equation 19.</p>
+</dd>
+<dt><strong>precession_angles</strong><span class="classifier">function call</span></dt><dd><p>Computes orientation angles, equations A4, A6a, A6b.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>Phi_L</strong><span class="classifier">float</span></dt><dd><p>Phase of the orbital angular momentum vector.</p>
+<dt><strong>Phi_L</strong><span class="classifier">float or array_like</span></dt><dd><p>Azimuthal angle of the orbital angular momentum vector.</p>
 </dd>
 </dl>
 </dd>

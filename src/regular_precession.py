@@ -48,63 +48,84 @@ class Regular_precession():
 
     def get_total_mass(self):
         """
-        Calculate the total mass of the binary system from the chirp mass and symmetric mass ratio.
+        Calculate the total mass of the binary system from the chirp mass and symmetric mass ratio [s], M = M_c / eta**(3/5).
 
         Parameters
         ----------
         mcz : float
             Chirp mass [s].
         eta : float
-            Symmetric mass ratio.
+            Symmetric mass ratio [dimensionless].
 
         Returns
         -------
         total_mass : float
-            Total mass of the binary system [s].
+            Total mass of the binary system.
         """
         return self.mcz/(self.eta**(3/5))           # total mass of the binary system [s]: M = M_c / eta**(3/5)
 
     def get_f_cut(self):
         """
-        Compute the cut-off frequency where the binary coalesces.
+        Compute the cut-off frequency where the binary coalesces, equation 13 in the paper (https://arxiv.org/pdf/2509.10628), f_cut = 1/(6**(3/2)*pi*M), where M is the total mass of the binary.
+        
+        Parameters
+        ----------
+        get_total_mass : function call
+            Computes the total mass of the binary system given the chirp mass and symmetric mass ratio, M = M_c / eta**(3/5).
 
         Returns
         -------
         f_cut : float
-            Cut-off frequency [Hz].
+            Cut-off frequency.
         """
         return 1/(6**(3/2)*np.pi*self.get_total_mass()) # Equation 13 -- cut-off frequency [Hz]: f_cut = 1/(r_{ISCO}**(3/2) * pi * M)
     
 
     def get_theta_LJ(self, f):
         """
-        Angle between L and J at a given frequency [rad] in the L-J plane.
+        Angle between L and J at a given frequency [rad] in the L-J plane, equation 18a in the paper (https://arxiv.org/pdf/2509.10628), theta_LJ = 0.1/(4*eta) * theta_tilde * (f/f_cut)**(1/3), where f_cut is the cut-off frequency, theta_tilde is the dimensionless precession amplitude.
 
         Parameters
         ----------
-        f : float
+        f : float or array_like
             Frequency where the angle is to be calculated [Hz].
+        eta : float
+            Symmetric mass ratio.
+        theta_tilde : float
+            Dimensionless precession amplitude parameter.
+        get_f_cut : function call
+            Computes the cut-off frequency, f_cut = 1/(6**(3/2)*pi*M), where M is the total mass of the binary.
 
         Returns
         -------
-        theta_LJ : float
-            Angle between L and J at a given frequency [rad].
+        theta_LJ : float or array_like
+            Angle between L and J at a given frequency.
         """
         return (0.1/(4*self.eta))*self.theta_tilde*(f/self.get_f_cut())**(1/3) # Equation 18a  -- Angle between L and J at a given frequency [rad]: theta_LJ = 0.1/(4*eta) * theta_tilde * (f/f_cut)**(1/3)
     
     def get_phi_LJ(self, f):
         """
-        Angle between projection of L in the x-y plane and x axis in source frame at a given frequency [rad].
+        Angle between projection of L in the x-y plane and x axis in source frame at a given frequency [rad], equation 19 in the paper (https://arxiv.org/pdf/2509.10628), phi_LJ = gamma_P + \int_{f_min}^f (Omega_LJ (df'/dt)**(-1)) df', where Omega_LJ is the precession frequency.
 
         Parameters
         ----------
-        f : float
+        f : float or array_like
             Frequency where the angle is to be calculated [Hz].
+        omega_tilde : float
+            Dimensionless precession frequency parameter [Dimensionless].
+        mcz : float
+            Chirp mass [s].
+        gamma_P : float
+            Precession phase at reference frequency [rad].
+        get_total_mass : function call
+            Computes the total mass of the binary system, M = M_c / eta**(3/5), given the chirp mass M_c and symmetric mass ratio eta [s].
+        get_f_cut : function call
+            Computes the cut-off frequency, f_cut = 1/(6**(3/2)*pi*M), where M is the total mass of the binary [Hz].
 
         Returns
         -------
-        phi_LJ : float
-            Angle between projection of L in the x-y plane and x axis in source frame at a given frequency [rad].
+        phi_LJ : float or array_like
+            Angle between projection of L in the x-y plane and x axis in source frame at a given frequency.
         """
         phi_LJ_amp = (5000 * self.omega_tilde) / (96 * (self.get_total_mass()/self.SOLMASS2SEC) * (np.pi**(8/3)) * (self.mcz**(5/3)) * (self.get_f_cut()**(5/3)))
         return phi_LJ_amp * (1/self.FMIN - 1/f) + self.gamma_P # Equation 19 (also uses equation 18b) -- Angle between projection of L in the x-y plane and x axis in source frame at a given frequency [rad]: phi_LJ = phi_LJ_amp * (1/f_min - 1/f) + gamma_P
@@ -112,7 +133,14 @@ class Regular_precession():
         
     def amp_prefactor(self) -> float:
         """
-        Amplitude prefactor calculated using chirp mass and distance.
+        Amplitude prefactor calculated using chirp mass and distance, equation 6 in the paper (https://arxiv.org/pdf/2509.10628), A = sqrt(5/96) * (pi**(-2/3)) * (M_c**(5/6)) / D_L, where M_c is the chirp mass and D_L is the luminosity distance.
+
+        Parameters
+        ----------
+        mcz : float
+            Chirp mass [s].
+        dist : float
+            Luminosity distance [s].
 
         Returns
         -------
@@ -124,7 +152,18 @@ class Regular_precession():
 
     def precession_angles(self):
         """
-        Compute angles important for the precession model.
+        Compute angles important for the precession model, specifically the angle between J and N, and the angle between the x-axis of the source frame and H in the sky frame. Equations A4, A6a, A6b in the paper (https://arxiv.org/abs/2006.10290).
+
+        Parameters
+        ----------
+        theta_J : float
+            Binary plane inclination - polar angle for J in detector frame [rad].
+        phi_J : float
+            Binary plane azimuthal angle for J in detector frame [rad].
+        theta_S : float
+            Sky inclination - polar angle for line of sight in detector frame [rad].
+        phi_S : float
+            Sky azimuthal angle for line of sight in detector frame [rad].
 
         Returns
         -------
@@ -153,17 +192,23 @@ class Regular_precession():
     
     def LdotN(self, f):
         """
-        Cosine of the angle between L and N.
+        Cosine of the angle between L and N, equation A10 in the paper (https://arxiv.org/pdf/2509.10628).
 
         Parameters
         ----------
-        f : float
+        f : float or array_like
             Frequency at which to calculate the dot product [Hz].
+        get_theta_LJ : function call
+            Computes the angle between L and J, equation 18a.
+        get_phi_LJ : function call
+            Computes the azimuthal angle of L in source frame, equation 18b.
+        precession_angles : function call
+            Computes orientation angles, equations A4, A6a, A6b.
 
         Returns
         -------
-        LdotN : float
-            Dot product of L and N.
+        LdotN : float or array_like
+            Dot product of L and N (cosine of angle between L and N).
         """
         cos_i_JN, sin_i_JN, cos_o_XH, sin_o_XH = self.precession_angles()
         LdotN = np.sin(self.get_theta_LJ(f)) * sin_i_JN * np.sin(self.get_phi_LJ(f)) + np.cos(self.get_theta_LJ(f)) * cos_i_JN  
@@ -171,20 +216,30 @@ class Regular_precession():
 
     def beam_pattern_amplitude_and_phase(self, f):
         """
-        Beam pattern functions for + and x polarizations.
+        Beam pattern functions for + and x polarizations, equations 3, 4a, 4b in the paper (https://arxiv.org/pdf/2509.10628).
 
         Parameters
         ----------
-        f : float
+        f : float or array_like
             Frequency at which to calculate the beam pattern [Hz].
+        theta_S : float
+            Sky inclination angle [rad].
+        phi_S : float
+            Sky azimuthal angle [rad].
+        get_theta_LJ : function call
+            Computes the angle between L and J, equation 18a.
+        get_phi_LJ : function call
+            Computes the azimuthal angle of L in source frame, equation 18b.
+        precession_angles : function call
+            Computes orientation angles, equations A4, A6a, A6b.
 
         Returns
         -------
-        C_amp : float
+        C_amp : float or array_like
             Amplitude of the beam pattern functions for + and x polarizations.
-        sin_2pa : float
+        sin_2pa : float or array_like
             Sine of 2 times the polarization angle + alpha (for x polarization).
-        cos_2pa : float
+        cos_2pa : float or array_like
             Cosine of 2 times the polarization angle + alpha (for + polarization).
         """
         cos_i_JN, sin_i_JN, cos_o_XH, sin_o_XH = self.precession_angles()
@@ -221,16 +276,22 @@ class Regular_precession():
 
     def amplitude(self, f) -> np.array:
         """
-        GW amplitude as in equation 10 (Apostolatos+ 1994).
-
+        GW amplitude, equation 10 in the paper (https://arxiv.org/pdf/2509.10628) - also in Apostolatos+ 1994 as equation 7a.
+        
         Parameters
         ----------
-        f : float
+        f : float or array_like
             Frequency at which the amplitude is to be calculated [Hz].
+        LdotN : function call
+            Computes the dot product between L and N, equation A10.
+        beam_pattern_amplitude_and_phase : function call
+            Computes beam pattern functions, equations 3, 4a, 4b.
+        amp_prefactor : function call
+            Computes amplitude prefactor, equation 6.
 
         Returns
         -------
-        amp : float
+        amp : float or array_like
             Amplitude of the GW signal.
         """
         LdotN = self.LdotN(f)
@@ -241,16 +302,20 @@ class Regular_precession():
 
     def phase_phi_P(self, f):
         """
-        Polarization phase of the GW signal as in equation 11 (Apostolatos+ 1994).
-
+        Polarization phase of the GW signal, equation 11 in the paper (https://arxiv.org/pdf/2509.10628).
+        
         Parameters
         ----------
-        f : float
+        f : float or array_like
             Frequency at which the phase is to be calculated [Hz].
+        LdotN : function call
+            Computes the dot product between L and N, equation A10.
+        beam_pattern_amplitude_and_phase : function call
+            Computes beam pattern functions, equations 3, 4a, 4b.
 
         Returns
         -------
-        phi_p : float
+        phi_p : float or array_like
             Polarization phase of the GW signal.
         """
         LdotN = self.LdotN(f)
@@ -262,35 +327,53 @@ class Regular_precession():
     
     def f_dot(self, f):
         """
-        df/dt from Cutler & Flanagan 1994.
+        df/dt from Cutler & Flanagan 1994, equation 20 in the paper (https://arxiv.org/pdf/2509.10628).
 
         Parameters
         ----------
-        f : float
+        f : float or array_like
             Frequency at which the derivative is to be calculated [Hz].
+        mcz : float
+            Chirp mass [s].
 
         Returns
         -------
-        f_dot : float
-            df/dt at a given frequency.
+        f_dot : float or array_like
+            df/dt at a given frequency [Hz/s].
         """
         prefactor = (96/5) * np.pi**(8/3) * self.mcz**(5/3) * f**(11/3) # Leaving out the higher order terms
         return prefactor #* (1 - (743/336 + (11/4) * self.eta) * (np.pi * self.get_total_mass() * f)**(2/3) + 4 * np.pi * (np.pi * self.get_total_mass() * f)) #### Higher order terms
 
     def integrand_delta_phi(self, y, f):
         """
-        Integrand for delta phi p (Apostolatos 1994, appendix A - Eq A18).
+        Integrand for delta phi p, equation 12 and A19 in the paper (https://arxiv.org/pdf/2509.10628).
 
         Parameters
         ----------
         y : float
-            Variable for the integral (default is 0).
-        f : float
+            Variable for the integral (typically 0 for initial condition).
+        f : float or array_like
             Frequency at which the integrand is to be calculated [Hz].
+        omega_tilde : float
+            Dimensionless precession frequency parameter.
+        LdotN : function call
+            Computes the dot product between L and N, equation A10.
+        precession_angles : function call
+            Computes orientation angles, equations A11, A12, A13.
+        f_dot : function call
+            Computes frequency derivative, equation 20.
+        get_theta_LJ : function call
+            Computes the angle between L and J, equation A14.
+        get_phi_LJ : function call
+            Computes the azimuthal angle of L in source frame, equation A15.
+        get_f_cut : function call
+            Computes the cut-off frequency, equation A16.
+        get_total_mass : function call
+            Computes the total mass of the binary, equation A17.
 
         Returns
         -------
-        integrand_delta_phi : float
+        integrand_delta_phi : float or array_like
             Integrand for the delta phi p.
         """
         LdotN = self.LdotN(f)
@@ -308,16 +391,18 @@ class Regular_precession():
 
     def phase_delta_phi(self, f):
         """
-        Integrate the delta_phi integrand from 0 to f to get the phase correction.
+        Integrates the delta_phi integrand from 0 to f to get the phase correction to precession phase, integrating equation 12/A19 in the paper (https://arxiv.org/pdf/2509.10628).
 
         Parameters
         ----------
-        f : float
+        f : float or array_like
             Frequency at which the phase is to be calculated [Hz].
+        integrand_delta_phi : function call
+            Computes the integrand for phase correction, equation 12/A19.
 
         Returns
         -------
-        integral : float
+        integral : float or array_like
             Integral of the integrand_delta_phi.
         """
         integral = odeint(self.integrand_delta_phi, 0, f)
@@ -325,16 +410,26 @@ class Regular_precession():
 
     def Psi(self, f):
         """
-        GW phase up to 2 PN order.
-
+        GW phase up to 2 PN order, equation 7 in https://arxiv.org/pdf/2509.10628.
+        
         Parameters
         ----------
-        f : float
+        f : float or array_like
             Frequency at which the phase is to be calculated [Hz].
+        mcz : float
+            Chirp mass [s].
+        eta : float
+            Symmetric mass ratio.
+        t_c : float
+            Coalescence time [s].
+        phi_c : float
+            Coalescence phase [rad].
+        get_total_mass : function call
+            Computes the total mass of the binary.
 
         Returns
         -------
-        Psi : float
+        Psi : float or array_like
             GW phase of the GW signal.
         """
         x = (np.pi*self.get_total_mass()*f)**(2/3)
@@ -344,16 +439,24 @@ class Regular_precession():
     
     def precessing_strain(self, f, delta_f=0.25, frequencySeries=True):
         """
-        GW signal with regular precession.
+        GW signal with regular precession, equation 9 in https://arxiv.org/pdf/2509.10628.
 
         Parameters
         ----------
-        f : float
+        f : float or array_like
             Frequency at which the strain is to be calculated [Hz].
         delta_f : float, optional
-            Frequency resolution [Hz].
+            Frequency resolution [Hz]. Default is 0.25.
         frequencySeries : bool, optional
-            Whether to return a FrequencySeries object (default True).
+            Whether to return a FrequencySeries object. Default is True.
+        amplitude : function call
+            Computes the GW amplitude, equation 10.
+        Psi : function call
+            Computes the GW phase, equation 7.
+        phase_phi_P : function call
+            Computes the polarization phase, equation 11.
+        phase_delta_phi : function call
+            Computes the precession phase correction, equation A19.
 
         Returns
         -------
@@ -371,12 +474,20 @@ class Regular_precession():
 
         Parameters
         ----------
-        f : float
+        f : float or array_like
             Frequency at which the angle is to be calculated [Hz].
+        theta_S : float
+            Sky inclination angle [rad].
+        get_theta_LJ : function call
+            Computes the angle between L and J.
+        get_phi_LJ : function call
+            Computes the azimuthal angle of L in source frame.
+        precession_angles : function call
+            Computes orientation angles, equations A4, A6a, A6b.
 
         Returns
         -------
-        L_z : float
+        L_z : float or array_like
             Cosine of the polar angle for the orbital angular momentum vector.
         """
         cos_i_JN, sin_i_JN, cos_o_XH, sin_o_XH = self.precession_angles()
@@ -386,17 +497,27 @@ class Regular_precession():
     
     def phi_L(self, f):
         """
-        Evolution of the orbital angular momentum vector in the detector frame (phase).
+        Evolution of the orbital angular momentum vector in the detector frame (azimuthal angle).
 
         Parameters
         ----------
-        f : float
+        f : float or array_like
             Frequency at which the angle is to be calculated [Hz].
+        theta_S : float
+            Sky inclination angle [rad].
+        phi_S : float
+            Sky azimuthal angle [rad].
+        get_theta_LJ : function call
+            Computes the angle between L and J, equation 18a.
+        get_phi_LJ : function call
+            Computes the azimuthal angle of L in source frame, equation 19.
+        precession_angles : function call
+            Computes orientation angles, equations A4, A6a, A6b.
 
         Returns
         -------
-        Phi_L : float
-            Phase of the orbital angular momentum vector.
+        Phi_L : float or array_like
+            Azimuthal angle of the orbital angular momentum vector.
         """
         #from equation a8
         cos_i_JN, sin_i_JN, cos_o_XH, sin_o_XH = self.precession_angles()
