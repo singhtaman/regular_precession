@@ -51,6 +51,8 @@ pip install git+https://github.com/singhtaman/regular_precession.git
 
 ```python
 from src.regular_precession import Regular_precession
+solar_mass = 4.92624076 * 1e-6          # [solar_mass] = sec
+giga_parsec = 1.02927125 * 1e17         # [giga_parsec] = sec
 
 # Define parameters for a regular precessing binary
 params = {
