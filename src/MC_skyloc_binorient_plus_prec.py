@@ -288,11 +288,12 @@ def prec_av_inf_to_f20_rp_params(theta_1_inf, theta_2_inf, delta_phi, q, chi1, c
         u20 = precession.eval_u(r20, q)
         u_arr = np.linspace(0., u20, 101)
         
-        inspiral_prec_av = precession.inspiral_precav(theta1= theta_1_inf, theta2=theta_2_inf, deltaphi=delta_phi, u=u_arr[100], chi1=chi1, chi2=chi2, q=q, requested_outputs=['theta1','theta2','deltaphi'])
+        inspiral_prec_av = precession.inspiral_precav(theta1 = theta_1_inf, theta2=theta_2_inf, deltaphi=delta_phi, u=u_arr.T, chi1=chi1, chi2=chi2, q=q, requested_outputs=['theta1','theta2','deltaphi'])
         
-        theta_1_r20 = inspiral_prec_av['theta1']
-        theta_2_r20 = inspiral_prec_av['theta2']
-        delta_phi_r20 = inspiral_prec_av['deltaphi']
+        # Last element of the array corresponds to the values at r20
+        theta_1_r20 = np.array(inspiral_prec_av['theta1']).flatten()[100]
+        theta_2_r20 = np.array(inspiral_prec_av['theta2']).flatten()[100]
+        delta_phi_r20 = np.array(inspiral_prec_av['deltaphi']).flatten()[100]
         
         kappa_r20_arr = precession.eval_kappa(theta1=theta_1_r20, theta2=theta_2_r20, deltaphi=delta_phi_r20, r=r20, q=q, chi1=chi1, chi2=chi2)
         kappa_r20 = kappa_r20_arr.flatten()
